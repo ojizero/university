@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<meta charset="utf-8"/>
+
+<html>
+	<h1>Request buisiness cards</h1>
+
+	<form dir='rtl'>
+		الرقم الوظيفي<br />
+		<br />
+		الاسم بالعربية<br />
+		<br />
+		الاسم بالإنجليزية<br />
+		<br />
+
+		الكلية/الدائرة/البرنامج<br />
+		<ul>
+			<li>بالعربية</li>
+			<li>بالإنجليزية</li>
+		</ul>
+		<br />
+		المسمى الوظيفي<br />
+		<ul>
+			<li>بالعربية</li>
+			<li>بالإنجليزية</li>
+		</ul>
+		<br />
+
+		البريد الإلكتروني <input type='text' name='email' value='example@birzeit.edu' dir='ltr' required='required' /><br />
+		رقم الهاتف <input type='tel' name='land-number' value='+972 2 2512000' dir='ltr' required='required' /><br />
+		رقم الفاكس <input type='tel' name='fax-number' value='+972 2 2512000' dir='ltr' required='required' /><br />
+		رقم الجوال <input type='tel' name='mobile-number' value='+972 500 000 000' dir='ltr' required='required' /><br />
+
+		عنوان الجامعة الإلكتروني <a href='https://www.birziet.edu/' dir='ltr'>https://www.birziet.edu/</a><br />
+
+		العنوان البريدي بالغتين<br />
+		<label dir='ltr'>P.O. Box 14, Birzeit, Palestine</label> <label>ص.ب. 14، بيرزيت، فلسطين</label><br />
+
+		عدد البطاقات <input type='number' name='count' placeholder='1000' min='1000' required='required' /><br />
+
+		<br />
+		<input type='submit' />
+	</form>
+</html>

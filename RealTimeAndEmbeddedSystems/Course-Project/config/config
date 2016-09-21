@@ -1,0 +1,6 @@
+PORT:80
+MAX_DATA_BUFF:2048	# maximum buffer size to send a reciev by sockets in bytes
+MAX_NUM_WORKERS:4
+MAX_CONN_PERWORKER:500
+SERVER_PATH:./server_root
+MAX_REQ:2048
