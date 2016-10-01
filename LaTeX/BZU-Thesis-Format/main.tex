@@ -1,0 +1,113 @@
+\documentclass[a4paper]{report}
+
+\usepackage{graphicx}	% for inserting graphs and images
+\usepackage[utf8]{inputenc}
+\usepackage[arabic,english]{babel}
+
+
+\title{Sign Language to Speech Conversion System}
+\author{Sara Yassin,Ali Nubani,Ameer Alkam,Aziz Qaroush}
+
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%	FRONT PAGE MATTER	%
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{titlepage}
+	\centering
+	{\includegraphics[]{Birzeit_University_logo.png}\par}
+	\vspace{2cm}
+	
+	{\large Birzeit University\par}
+	{\large Faculty of Engineering and Technology\par}
+	{\large Department of Electrical and Computer Engineering\par}
+	\vspace{1cm}
+	
+	{\huge Sign Language to Speech Conversion System\par}
+	\vspace{1.5cm}
+	
+	{\small \textit{prepared by:}\par}
+	{\large Ali \textsc{Annubani}\par}
+	{\large Sara \textsc{Yassin}\par}
+	{\large Ameer \textsc{Alkam}\par}
+	\vspace{0.5cm}
+	{\small \textit{supervised by:}\par}
+	{\large Aziz \textsc{Qaroush}\par}
+	\vspace{3cm}
+	
+	{A graduation Project submitted to the Department of Electrical and Computer Engineering in partial fulfillment of the requirements	for the degree of B.Sc. in Computer Systems Engineering\par}
+	\vspace{2cm}
+	
+	{\textbf{BIRZEIT}\par}
+	{October, 2016}	% TODO get date {month and year only} automatically 
+	
+	\vfill
+\end{titlepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%	TABLE OF CONTENT	%
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%\pagenumbering{gobble}
+
+\tableofcontents
+\thispagestyle{empty}
+\newpage
+
+%\clearpage
+\pagenumbering{roman}
+
+%%%%%%%%%%%%%%%%%
+%	ABSTRACT	%
+%%%%%%%%%%%%%%%%%
+
+\begin{abstract}
+	Abstract goes here.
+\end{abstract}
+\addcontentsline{toc}{section}{Abstract} % to add to ToC
+
+\begin{otherlanguage}{arabic}
+	\begin{abstract}
+		الملخص العربي هنا.
+	\end{abstract}
+%\addcontentsline{toc}{section}{المصتخلص} % to add to ToC % doesn't fit the ToC
+\end{otherlanguage}
+
+%%%%%%%%%%%%%%%%%%%%%
+%	ACKNOWLEDGEMENT	%
+%%%%%%%%%%%%%%%%%%%%%
+\chapter*{Acknowledgments}
+\addcontentsline{toc}{section}{Acknowledgements} % to add to ToC
+Acknowledgments go here.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	LISTS OF FIGURES, AND TABLES	%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\listoftables
+\addcontentsline{toc}{section}{List of Tables} % to add to ToC
+\newpage
+
+\listoffigures
+\addcontentsline{toc}{section}{List of Figures} % to add to ToC
+\newpage
+
+%%%%%%%%%%%
+% CONTENT %
+%%%%%%%%%%%
+% begin counting in Arabic numerals
+\clearpage
+\pagenumbering{arabic}
+
+\chapter{Introduction}
+\input{chapters/1-introduction.tex}
+
+\chapter{Related Works}
+\input{chapters/2-relatedworks.tex}
+
+\chapter{Chapter 3}
+\input{chapters/3-ch3.tex}
+
+\chapter{Conclusions and Remaining Work}
+\input{chapters/4-final.tex}
+
+\end{document}          

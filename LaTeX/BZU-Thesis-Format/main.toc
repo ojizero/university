@@ -1,0 +1,19 @@
+\select@language {english}
+\select@language {english}
+\contentsline {section}{Abstract}{i}
+\select@language {arabic}
+\select@language {english}
+\select@language {english}
+\contentsline {section}{Acknowledgements}{\if@rlmain \I {1}\else \textLR {1}\fi }
+\select@language {english}
+\contentsline {section}{List of Tables}{\if@rlmain \I {2}\else \textLR {2}\fi }
+\select@language {english}
+\contentsline {section}{List of Figures}{\if@rlmain \I {3}\else \textLR {3}\fi }
+\select@language {english}
+\contentsline {chapter}{\numberline {1}\bgroup \beginL \latintext Introduction\endL \egroup }{\if@rlmain \I {1}\else \textLR {1}\fi }
+\select@language {english}
+\contentsline {chapter}{\numberline {2}\bgroup \beginL \latintext Related Works\endL \egroup }{\if@rlmain \I {2}\else \textLR {2}\fi }
+\select@language {english}
+\contentsline {chapter}{\numberline {3}\bgroup \beginL \latintext Chapter 3\endL \egroup }{\if@rlmain \I {3}\else \textLR {3}\fi }
+\select@language {english}
+\contentsline {chapter}{\numberline {4}\bgroup \beginL \latintext Conclusions and Remaining Work\endL \egroup }{\if@rlmain \I {4}\else \textLR {4}\fi }
