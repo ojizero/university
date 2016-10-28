@@ -48,8 +48,8 @@ def parse_results (results)
 			inf_div           = result.match(/<div class="gs_ri">(.*)$/)[0].gsub(/^<div class="gs_ri">/, '')
 
 			# title of paper as well as link to it
-			title_link        = inf_div.match(/<h\d(.*)<\/h\d>/)[0].gsub(/^<h\d(.*)><a|<\/h\d>$/, '') # FIXME didn't catch the header ?!
-			publication_link  = title_link.match(/href="([^"']*)"/)[0].gsub(/(^href="|"$)/, '') # FIXME correct link parsing here
+			title_link        = inf_div.match(/<h\d(.*)<\/h\d>/)[0].gsub(/^<h\d(.*)><a|<\/h\d>$/, '')
+			publication_link  = title_link.match(/href="([^"']*)"/)[0].gsub(/(^href="|"$)/, '')
 			publication_title = title_link.match(/>(.*)<\/a>/)[0].gsub(/(^>|<\/a>$)/, '')
 			publisher         = publication_link.match(/((.*)[.])?(.*)[.](.*)[\/]/)[0].strip
 			# authors of it
@@ -58,7 +58,7 @@ def parse_results (results)
 			abstract_div      = inf_div.match(/<div class="gs_rs">(.*)<div class="gs_fl">/)[0].gsub(/^<div class="gs_rs">|<div class="gs_fl">$/, '')
 
 			# dictionary holding the data
-			res               = Hash.new 'null'
+			res               = Hash.new '__null__'
 
 			res['__title__']     = publication_title
 			res['__link__']      = publication_link
@@ -101,7 +101,6 @@ begin
 	# Foreach user, search on Google Scholar, parse results and write them to output file
 	input.each_line do |line|
 		unless line =~ /^\s*[\{\}]?\s*$/
-			# TODO modify to meet new input
 			info = line.split(':')
 			id   = info[0].strip; user = info[1].strip.gsub(/(^["']|["']\s*(,)?\s*$)/, '').strip
 			out  = ''
@@ -116,29 +115,29 @@ begin
 				results  = parse_results(results)
 
 				# prepare what's to be written to output file
-				out << "#{id}: {\n\"#{user}\"\n"
+				out << "\t\"#{id}\": {\n\t\t\"__user__\" : \"#{user}\",\n\t\t\"__researches__\" : ["
 
 				# remove HTML tags requires extra libraries
 				# for simplicity that is left for the PHP side of the code
 				results.each do |res|
-					out <<
-						"
-						\r\"__title__\" : \"#{res['__title__']}\",\n
-						\r\"__url__\" : \"#{res['__link__']}\",\n
-						\r\"__authors__\" : \"#{res['__authors__']}\",\n
-						\r\"__abstract__\" : \"#{res['__abstract__']}\",\n
-						\r\"__publisher__\" : \"#{res['__publisher__']}\",\n
-						\r\"__pdf__\" : \"#{res['__pdf__']}\"\n
-						"
+					# made into one liner to avoid breaking the formatting in file when refactoring the code in IDEs
+					# apologies to anyone trying to decipher this lol
+					out << "\n\t\t\t{\n\t\t\t\t\"__title__\" : \"#{res['__title__']}\",\n\t\t\t\t\"__url__\" : \"#{res['__link__']}\",\n\t\t\t\t\"__authors__\" : \"#{res['__authors__']}\",\n\t\t\t\t\"__abstract__\" : \"#{res['__abstract__']}\",\n\t\t\t\t\"__publisher__\" : \"#{res['__publisher__']}\",\n\t\t\t\t\"__pdf__\" : \"#{res['__pdf__']}\"\n\t\t\t},"
 				end
 
-				out << '},'
+				# remove trailing comma
+				# remove quotes around any defaulted null string
+				out = out[0...-1].gsub(/["]__null__["]/, 'null')
+				out << "\n\t\t]\n\t},"
 			end # END of website processing
-			# write data to outpuf file
+			# write data to output file, ignoring trailing comma
 			output.write "#{out[0...-1]}\n"
 		end # END of line processing
 	end # END of input file processing
 	output.write "}\n"
+rescue ArgumentError => e
+	p e.message
+	p e.backtrace
 rescue
 	p $!
 ensure
