@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b6b18461-63a5-481e-b7b6-6c7ddfa0f61b" name="Default" comment="Added the Ruby script project&#10;&#10;The main code responsible for finding the researches">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Git/university/ResearchFinder/AutoResearchSearcher/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../../Git/university/ResearchFinder/AutoResearchSearcher/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="b6b18461-63a5-481e-b7b6-6c7ddfa0f61b" name="Default" comment="Added the Ruby script project&#10;&#10;The main code responsible for finding the researches" />
     <ignored path="AutoResearchSearcher.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -328,15 +326,15 @@
       <workItem from="1477645636380" duration="2134000" />
       <workItem from="1477648516085" duration="23000" />
       <workItem from="1477648655611" duration="13000" />
-      <workItem from="1477648673238" duration="2493000" />
+      <workItem from="1477648673238" duration="2550000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38118000" />
+    <option name="totallyTimeSpent" value="38175000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="-1" width="1600" height="901" extended-state="7" />
+    <frame x="0" y="-1" width="1600" height="901" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15528351" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />

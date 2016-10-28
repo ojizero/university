@@ -7,6 +7,6 @@ Description: A Plugin that takes the users in roles related to research, then st
 Version: 1.0
 Author: oji
 Author URI: https://github.com/ojizero/
-License: GPL2
+License: GPL3
 */
 
