@@ -7,7 +7,11 @@
 ##  using a following script/program                            ##
 ## ############################################################ ##
 
+VERSION_NUMBER = 1.0
+
+require 'optparse'
 require 'open-uri'
+require 'logger'
 
 
 # place website names here, default to parsing the title tag or going to google for other stuff
@@ -60,13 +64,13 @@ def parse_results (results)
 			# dictionary holding the data
 			res               = Hash.new '__null__'
 
-			res['__title__']     = publication_title
-			res['__link__']      = publication_link
-			res['__authors__']   = authors_div
-			res['__abstract__']  = abstract_div
-			res['__publisher__'] = ($site_names[publisher.gsub(/(^http(s?):\/\/|\/$)/, '')] or publisher)
+			res['__title__']     = publication_title.gsub(/"/, '\"')
+			res['__link__']      = publication_link.gsub(/"/, '\"')
+			res['__authors__']   = authors_div.gsub(/"/, '\"')
+			res['__abstract__']  = abstract_div.gsub(/"/, '\"')
+			res['__publisher__'] = ($site_names[publisher.gsub(/(^http(s?):\/\/|\/$)/, '')] or publisher).gsub(/"/, '\"')
 			unless pdf_link.nil?
-				res['__pdf__'] = pdf_link
+				res['__pdf__'] = pdf_link.gsub(/"/, '\"')
 			end
 
 			# append to return variable
@@ -78,24 +82,44 @@ def parse_results (results)
 end
 
 
-BASE_URL = 'https://scholar.google.com/scholar?q='
-if $*.length > 0
-	# if there are given arguments
-	INPUT_FILE = $1
-else
-	# default path for input file
-	INPUT_FILE = './input.users'
-end
-if $*.length > 1
-	OUTPUT_FILE = $2
-else
-	OUTPUT_FILE = './output.results'
-end
+BASE_URL    = 'https://scholar.google.com/scholar?q='
+
+# default path for input, output, and logging files
+INPUT_FILE  = './input.users'
+OUTPUT_FILE = './output.results'
+LOGGER      = './logger'
+
+OptionParser.new do |options|
+	options.banner = 'Usage: automater.rb [-i<input file> -o<output file> -l<logger file>]'
+
+	options.on('-i', '--input INPUT', 'Specify input file ... Default is "./input.users"') do |input|
+		INPUT_FILE = input
+	end
+
+	options.on('-o', '--output OUTPUT', 'Specify output file ... Default is "./output.users"') do |out|
+		OUTPUT_FILE = out
+	end
+
+	options.on('-l', '--logger LOGGER', 'Specify logging file ... Default is "./logger"') do |logf|
+		LOGGER = logf
+	end
+
+	options.on('-v', '--version', 'Print version and exit ..') do
+		p "#{VERSION_NUMBER}"
+		exit 0
+	end
+end.parse!
+logging = Logger.new open(LOGGER, 'w')
 
 begin
+	exit_status = 0
+	logging.info "#{Time.now} -> Began executing ..."
+
 	# Read users names, if failed exit
 	input  = open(INPUT_FILE, 'r')
 	output = open(OUTPUT_FILE, 'w')
+
+	logging.info 'Opened files ...'
 
 	output.write "{\n"
 	# Foreach user, search on Google Scholar, parse results and write them to output file
@@ -104,6 +128,9 @@ begin
 			info = line.split(':')
 			id   = info[0].strip; user = info[1].strip.gsub(/(^["']|["']\s*(,)?\s*$)/, '').strip
 			out  = ''
+
+			logging.info "Processing user #{user} of id #{id} ..."
+
 			open(BASE_URL + URI::escape(user)) do |page|
 				# get document by reading the page
 				document = page.readlines.join("\n")
@@ -135,15 +162,16 @@ begin
 		end # END of line processing
 	end # END of input file processing
 	output.write "}\n"
-rescue ArgumentError => e
-	p e.message
-	p e.backtrace
-rescue
-	p $!
+rescue Exception => e
+	logging.error "#{e.message}, #{e.backtrace}"
+	exit_status = -1
 ensure
 	# Close files
 	input.close
 	output.close
+
+	logging.info "Exiting program status #{exit_status}"
+
 	# Exit program
-	exit 0
+	exit exit_status
 end # END of program
