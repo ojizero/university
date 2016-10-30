@@ -23,7 +23,7 @@ $site_names['link.springer.com']   = 'Springer'
 $site_names['springer.com']        = 'Springer'
 
 
-def parse_results (results)
+def parse_results (results, user='(.*)')
 	# Parses results and returns an array for each result as JSON
 	ret = []
 
@@ -36,7 +36,9 @@ def parse_results (results)
 		# if result is user's home page (not paper) skip to next iteration
 		# OR
 		# if result is a user citation
-		unless result == '' or result =~ /(.*(user profiles for).*|\[citation\])/i
+		# OR
+		# if it's made not by the user
+		unless result == '' or result =~ /(.*(user profiles for).*|\[citation\])/i or result !=~/#{user}/i
 			# get the section containing the pdf info and link
 			# remove beginning div tag and trailing div from next
 			pdf_div  = result.match(/<div class="gs_ggs gs_fl">(.*)<div class="gs_ri">/)
@@ -88,6 +90,7 @@ BASE_URL    = 'https://scholar.google.com/scholar?q='
 INPUT_FILE  = './input.users'
 OUTPUT_FILE = './output.results'
 LOGGER      = './logger'
+CROSS_CHECK = false
 
 OptionParser.new do |options|
 	options.banner = 'Usage: automater.rb [-i<input file> -o<output file> -l<logger file>]'
@@ -108,6 +111,10 @@ OptionParser.new do |options|
 		p "#{VERSION_NUMBER}"
 		exit 0
 	end
+
+	options.on('-c' '--CROSSCHECK', 'Whether to uses simple RegEx based on user name to validate result or not ... Default is false') do
+		CROSS_CHECK = true
+	end
 end.parse!
 logging = Logger.new open(LOGGER, 'w')
 
@@ -126,7 +133,7 @@ begin
 	input.each_line do |line|
 		unless line =~ /^\s*[\{\}]?\s*$/
 			info = line.split(':')
-			id   = info[0].strip; user = info[1].strip.gsub(/(^["']|["']\s*(,)?\s*$)/, '').strip
+			id   = info[0].strip.gsub(/["']/, ''); user = info[1].strip.gsub(/(^["']|["']\s*(,)?\s*$)/, '').strip
 			out  = ''
 
 			logging.info "Processing user #{user} of id #{id} ..."
@@ -134,28 +141,46 @@ begin
 			open(BASE_URL + URI::escape(user)) do |page|
 				# get document by reading the page
 				document = page.readlines.join("\n")
-				# from document body, get only the results <div>
-				results  = document.match(/<div id="gs_ccl_results">(.*)<div id="gs_ccl_bottom">/)[0]
-				results  = results.sub(/<div id="gs_ccl_bottom">/, '').strip
 
-				# parse the results
-				results  = parse_results(results)
-
-				# prepare what's to be written to output file
-				out << "\t\"#{id}\": {\n\t\t\"__user__\" : \"#{user}\",\n\t\t\"__researches__\" : ["
-
-				# remove HTML tags requires extra libraries
-				# for simplicity that is left for the PHP side of the code
-				results.each do |res|
-					# made into one liner to avoid breaking the formatting in file when refactoring the code in IDEs
-					# apologies to anyone trying to decipher this lol
-					out << "\n\t\t\t{\n\t\t\t\t\"__title__\" : \"#{res['__title__']}\",\n\t\t\t\t\"__url__\" : \"#{res['__link__']}\",\n\t\t\t\t\"__authors__\" : \"#{res['__authors__']}\",\n\t\t\t\t\"__abstract__\" : \"#{res['__abstract__']}\",\n\t\t\t\t\"__publisher__\" : \"#{res['__publisher__']}\",\n\t\t\t\t\"__pdf__\" : \"#{res['__pdf__']}\"\n\t\t\t},"
+				if document =~ /(.*)did not match any articles(.*)/i
+					logging.info "Done processing #{user} of id #{id} ... no results found ... skipping"
+					break
 				end
 
-				# remove trailing comma
-				# remove quotes around any defaulted null string
-				out = out[0...-1].gsub(/["]__null__["]/, 'null')
-				out << "\n\t\t]\n\t},"
+				# from document body, get only the results <div>
+				results = document.match(/<div\s+id="gs_ccl_results">(.*)<div\s+id="gs_ccl_bottom">/)
+				if not results.nil?
+					results = results[0]
+				else
+					logging.info "Done processing #{user} of id #{id} ... results was `nil` ... avoided error by skipping"
+					break
+				end
+				results = results.sub(/<div id="gs_ccl_bottom">/, '').strip
+
+				# parse the results, for specified user as to avoid any misidentification
+				results = parse_results(results)
+
+				# prepare what's to be written to output file
+				out << "\t\"#{id}\": {\n\t\t\"__user__\" : \"#{user}\",\n\t\t\"__researches__\" : #{if results != [] then '[' else 'null' end}"
+
+				# if results returned aren't an empty set, then do processing
+				if results != []
+					# remove HTML tags requires extra libraries
+					# for simplicity that is left for the PHP side of the code
+					results.each do |res|
+						# made into one liner to avoid breaking the formatting in file when refactoring the code in IDEs
+						# apologies to anyone trying to decipher this lol
+						out << "\n\t\t\t{\n\t\t\t\t\"__title__\" : \"#{res['__title__']}\",\n\t\t\t\t\"__url__\" : \"#{res['__link__']}\",\n\t\t\t\t\"__authors__\" : \"#{res['__authors__']}\",\n\t\t\t\t\"__abstract__\" : \"#{res['__abstract__']}\",\n\t\t\t\t\"__publisher__\" : \"#{res['__publisher__']}\",\n\t\t\t\t\"__pdf__\" : \"#{res['__pdf__']}\"\n\t\t\t},"
+					end
+
+					# remove trailing comma
+					# remove quotes around any defaulted null string
+					out = out[0...-1].gsub(/["]__null__["]/, 'null')
+					out << "\n\t\t]"
+				end
+
+				out << "\n\t},"
+				logging.info "Done processing #{user} of id #{id} ... no issues"
 			end # END of website processing
 			# write data to output file, ignoring trailing comma
 			output.write "#{out[0...-1]}\n"
