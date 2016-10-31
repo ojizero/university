@@ -2,11 +2,125 @@
 
 	"0": {
 		"__user__" : "Ahmad Alsadeh",
-		"__researches__" : null
+		"__researches__" : [
+			{
+				"__title__" : "Cryptographically Generated Addresses (CGAs): Possible attacks and proposed mitigation approaches",
+				"__url__" : "http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=6391923",
+				"__authors__" : "A Alsadeh, H Rafiee, C Meinel - Computer and Information  &hellip;, 2012 - ieeexplore.ieee.org",
+				"__abstract__" : "Abstract&#8212;Cryptographically Generated Addresses (CGAs) were mainly designed to prove address ownership and to prevent the theft of existing IPv6 addresses by binding the owner&#39;s public key to the generated address. The address owner uses a corresponding  ...",
+				"__publisher__" : "http://ieeexplore.ieee.org/xpls/",
+				"__pdf__" : "http://hpi.de/fileadmin/hpi/FG_ITS/papers/Trust_and_Security_Engineering/2012_Alsadeh_CIT.pdf"
+			},
+			{
+				"__title__" : "Multicore-based auto-scaling SEcure Neighbor Discovery for Windows operating systems",
+				"__url__" : "http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=6164390",
+				"__authors__" : "H Rafiee, A Alsa&#39;deh, C Meinel - The International Conference  &hellip;, 2012 - ieeexplore.ieee.org",
+				"__abstract__" : "Abstract&#8212;SEcure Neighbor Discovery (SEND) is proposed to counter IPv6 Neighbor Discovery Protocol (NDP) security threats. However, SEND is compute-intensive. Fulfilling Hash2 condition in Cryptographically Generated Addresses (CGA) is the main heavy part  ...",
+				"__publisher__" : "http://ieeexplore.ieee.org/xpls/",
+				"__pdf__" : "https://www.researchgate.net/profile/Ahmad_Alsadeh2/publication/241627180_Multicore-based_auto-scaling_SEcure_Neighbor_Discovery_for_Windows_operating_systems/links/544fba2e0cf249aa53da8102.pdf"
+			},
+			{
+				"__title__" : "Stopping time condition for practical IPv6 cryptographically generated addresses",
+				"__url__" : "http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=6164388",
+				"__authors__" : "A Alsa&#39;deh, H Rafiee, C Meinel - The International Conference  &hellip;, 2012 - ieeexplore.ieee.org",
+				"__abstract__" : "Abstract&#8212;Cryptographically Generated Addresses (CGA) are employed as an authentication mechanism in IPv6 network to realize the proof of address ownership without relying on any trust authority. The security parameter (Sec) indicates the security level of  ...",
+				"__publisher__" : "http://ieeexplore.ieee.org/xpls/",
+				"__pdf__" : "http://hpi.de/fileadmin/user_upload/fachgebiete/meinel/papers/Trust_and_Security_Engineering/2012_AlSadeh_ICOIN.pdf"
+			},
+			{
+				"__title__" : "IPv6 stateless address autoconfiguration: balancing between security, privacy and usability",
+				"__url__" : "http://link.springer.com/chapter/10.1007/978-3-642-37119-6_10",
+				"__authors__" : "A AlSa&#39;deh, H Rafiee, C Meinel - &hellip;  on Foundations and Practice of Security, 2012 - Springer",
+				"__abstract__" : "Abstract Included in the IPv6 suite is a method for devices to automatically configure their own addresses in a secure manner. This technique is called Cryptographically Generated Addresses (CGAs). CGA provides the ownership proof necessary for an IPv6 address  ...",
+				"__publisher__" : "http://link.springer.com/chapter/10.1007/",
+				"__pdf__" : "http://hpi.de/fileadmin/hpi/FG_ITS/papers/Trust_and_Security_Engineering/2012_Alsadeh_FPS.pdf"
+			},
+			{
+				"__title__" : "CS-CGA: compact and more secure CGA",
+				"__url__" : "http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=6168492",
+				"__authors__" : "A AlSa&#39;deh, F Cheng, C Meinel - 2011 17th IEEE International  &hellip;, 2011 - ieeexplore.ieee.org",
+				"__abstract__" : "Abstract&#8212;Cryptographically Generated Address (CGA) is one of the most novel security features introduced in IPv6 suite. CGA is designed to prevent addresses theft without relying on trust authority or additional security infrastructures. However, CGA is relatively  ...",
+				"__publisher__" : "http://ieeexplore.ieee.org/xpls/",
+				"__pdf__" : "http://hpi.de/fileadmin/hpi/FG_ITS/papers/Trust_and_Security_Engineering/2011_AlSadeh_ICON.pdf"
+			}
+		]
 	}
 
 	"3": {
 		"__user__" : "Iyad Tumar",
-		"__researches__" : null
+		"__researches__" : [
+			{
+				"__title__" : "[PDF][PDF] Aquatools: An underwater acoustic networking simulation toolkit",
+				"__url__" : "http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.222.5682&amp;rep=rep1&amp;type=pdf",
+				"__authors__" : "A Sehgal, I Tumar, J Schönwälder - IEEE, Oceans, Sydney, Australia, 2010 - Citeseer",
+				"__abstract__" : "Abstract&#8212;High cost of development and deployment coupled with the complexity of the underwater acoustic channel makes it important to develop simulation tools which can assist in investigating underwater sensor networks and mobile autonomous underwater  ...",
+				"__publisher__" : "http://citeseerx.ist.psu.edu/viewdoc/",
+				"__pdf__" : "http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.222.5682&amp;rep=rep1&amp;type=pdf"
+			},
+			{
+				"__title__" : "Variability of available capacity due to the effects of depth and temperature in the underwater acoustic communication channel",
+				"__url__" : "http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=5278268",
+				"__authors__" : "A Sehgal, I Tumar, J Schonwalder - OCEANS 2009-EUROPE, 2009 - ieeexplore.ieee.org",
+				"__abstract__" : "Abstract&#8212;It is well established that path loss in the underwater acoustic channel is dependent on the transmission distance and signal frequency utilized, thereby causing the capacity to be dependent on transmission distance. It has been demonstrated that this  ...",
+				"__publisher__" : "http://ieeexplore.ieee.org/xpls/",
+				"__pdf__" : "https://www.researchgate.net/profile/Anuj_Sehgal2/publication/224599959_Variability_of_available_capacity_due_to_the_effects_of_depth_and_temperature_in_the_underwater_acoustic_communication_channel/links/0c96051b1b8078793e000000.pdf"
+			},
+			{
+				"__title__" : "NETCONF interoperability testing",
+				"__url__" : "http://link.springer.com/chapter/10.1007/978-3-642-02627-0_7",
+				"__authors__" : "HM Tran, I Tumar, J Schönwälder - IFIP International Conference on  &hellip;, 2009 - Springer",
+				"__abstract__" : "Abstract The IETF has developed a network configuration management protocol called NETCONF which was published as proposed standard in 2006. The NETCONF protocol provides mechanisms to install, manipulate, and delete the configuration of network  ...",
+				"__publisher__" : "http://link.springer.com/chapter/10.1007/",
+				"__pdf__" : "http://dl.ifip.org/db/conf/aims/aims2009/TranTS09.pdf"
+			},
+			{
+				"__title__" : "Impact of Mobility Patterns on the Performance of a Disruption Tolerant Network with Multi-radio Energy Conservation",
+				"__url__" : "http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=5763371",
+				"__authors__" : "I Tumar, A Sehgal&hellip; - 2011 IEEE International  &hellip;, 2011 - ieeexplore.ieee.org",
+				"__abstract__" : "Abstract&#8212;Frequent partitions, intermittent connectivity and message delivery delay are the commonly observed characteristics of disruption tolerant networks (DTNs). These networks often operate over extended periods since they are regularly deployed in harsh and  ...",
+				"__publisher__" : "http://ieeexplore.ieee.org/xpls/",
+				"__pdf__" : "https://pdfs.semanticscholar.org/2a9d/ea265ecf958dbea0f253beaa7c6f3e40291c.pdf"
+			},
+			{
+				"__title__" : "Evaluation of IPv6 over low-power wireless personal area networks implementations",
+				"__url__" : "http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=5355015",
+				"__authors__" : "KD Korte, I Tumar&hellip; - 2009 IEEE 34th  &hellip;, 2009 - ieeexplore.ieee.org",
+				"__abstract__" : "Abstract&#8212;A common radio technology used in wireless sensor networks is the IEEE 802.15. 4 standard. Wireless sensor networks have so far used custom, light-weight, and application specific network protocols on top of IEEE 802.15. 4, often optimized for resource  ...",
+				"__publisher__" : "http://ieeexplore.ieee.org/xpls/",
+				"__pdf__" : "https://pdfs.semanticscholar.org/3668/1002d055b879bc04616a2e4a4e9362fed53c.pdf"
+			},
+			{
+				"__title__" : "Resource management of disruption tolerant networks",
+				"__url__" : "http://link.springer.com/chapter/10.1007/978-3-540-70587-1_19",
+				"__authors__" : "I Tumar, J Schönwälder - IFIP International Conference on Autonomous  &hellip;, 2008 - Springer",
+				"__abstract__" : "Abstract Disruption tolerant networks (DTNs) differ from traditional networks due to their special characteristics such as frequent partitions, intermittent connectivity, and message delivery delay. This paper presents a new idea for the resource management of sparse  ...",
+				"__publisher__" : "http://link.springer.com/chapter/10.1007/",
+				"__pdf__" : "http://dl.ifip.org/db/conf/aims/aims2008/TumarS08.pdf"
+			},
+			{
+				"__title__" : "Effects of climate change and anthropogenic ocean acidification on underwater acoustic communications",
+				"__url__" : "http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=5603511",
+				"__authors__" : "A Sehgal, I Tumar&hellip; - OCEANS 2010 IEEE- &hellip;, 2010 - ieeexplore.ieee.org",
+				"__abstract__" : "Abstract&#8212;Global climate change is a widely accepted phenomenon and it is well understood that it is also leading to changes in the oceanic conditions. Increased industrial activities have also led to anthropogenic ocean acidification, the effects of which, on  ...",
+				"__publisher__" : "http://ieeexplore.ieee.org/xpls/",
+				"__pdf__" : "http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.301.2164&amp;rep=rep1&amp;type=pdf"
+			},
+			{
+				"__title__" : "Performance evaluation of a multi-radio energy conservation scheme for disruption tolerant networks",
+				"__url__" : "http://dl.acm.org/citation.cfm?id=1868517",
+				"__authors__" : "I Tumar, A Sehgal, J Schönwälder - Proceedings of the 8th ACM  &hellip;, 2010 - dl.acm.org",
+				"__abstract__" : "Abstract Disruption tolerant networks (DTNs) is a research area aiming at developing network communication when connectivity is intermittent and prone to disruptions. DTNs have many applications in remote and hazardous areas where they need to operate over  ...",
+				"__publisher__" : "ACM Digital Library",
+				"__pdf__" : "https://www.researchgate.net/profile/Anuj_Sehgal2/publication/221545322_Performance_evaluation_of_a_multi-radio_energy_conservation_scheme_for_disruption_tolerant_networks/links/0c96051b1b47701ed0000000.pdf"
+			},
+			{
+				"__title__" : "[PDF][PDF] NETCONF Interoperability Testing",
+				"__url__" : "https://www.researchgate.net/profile/Iyad_Tumar2/publication/221632328_NETCONF_Interoperability_Testing/links/0c960536d4cc971532000000.pdf",
+				"__authors__" : "I Tumar, HM Tran, J Schönwälder - Proceedings of the 3rd  &hellip;, 2009 - researchgate.net",
+				"__abstract__" : "Abstract The IETF has developed a network configuration management protocol called NETCONF which was published as proposed standard in 2006. The NETCONF protocol provides mechanisms to install, manipulate, and delete the configuration of network  ...",
+				"__publisher__" : "https://www.researchgate.net/profile/Iyad_Tumar2/publication/221632328_NETCONF_Interoperability_Testing/links/",
+				"__pdf__" : "https://www.researchgate.net/profile/Iyad_Tumar2/publication/221632328_NETCONF_Interoperability_Testing/links/0c960536d4cc971532000000.pdf"
+			}
+		]
 	}
 }

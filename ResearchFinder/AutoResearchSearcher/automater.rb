@@ -23,8 +23,12 @@ $site_names['link.springer.com']   = 'Springer'
 $site_names['springer.com']        = 'Springer'
 
 
-def parse_results (results, user='(.*)')
+def parse_results (params)
 	# Parses results and returns an array for each result as JSON
+	# Function parameters
+	results = params[:results]
+	check_re = (params[:check_re] or /(.*)/)
+
 	ret = []
 
 	results = results.gsub(/<\/div>|<div id="gs_ccl_results">/, '').strip # remove closing divs
@@ -38,7 +42,7 @@ def parse_results (results, user='(.*)')
 		# if result is a user citation
 		# OR
 		# if it's made not by the user
-		unless result == '' or result =~ /(.*(user profiles for).*|\[citation\])/i or result !=~/#{user}/i
+		unless result == '' or result =~ /(.*(user profiles for).*|\[citation\])/i or (not result =~ check_re)
 			# get the section containing the pdf info and link
 			# remove beginning div tag and trailing div from next
 			pdf_div  = result.match(/<div class="gs_ggs gs_fl">(.*)<div class="gs_ri">/)
@@ -46,7 +50,7 @@ def parse_results (results, user='(.*)')
 			pdf_link = nil
 			unless pdf_div.nil?
 				pdf_div  = pdf_div[0].gsub(/(<div class="gs_ggs gs_fl">|<div class="gs_ri">$)/, '')
-				pdf_link = pdf_div.match(/href="([^"']*)"/)[0].gsub(/(^href="|"$)/, '')
+				pdf_link = pdf_div.match(/href="([^"]*)"/)[0].gsub(/(^href="|"$)/, '')
 			end
 
 			# this variable contains the link to the PDF from Google Scholar, (regardless paid or not)
@@ -55,7 +59,7 @@ def parse_results (results, user='(.*)')
 
 			# title of paper as well as link to it
 			title_link        = inf_div.match(/<h\d(.*)<\/h\d>/)[0].gsub(/^<h\d(.*)><a|<\/h\d>$/, '')
-			publication_link  = title_link.match(/href="([^"']*)"/)[0].gsub(/(^href="|"$)/, '')
+			publication_link  = title_link.match(/href="([^"]*)"/)[0].gsub(/(^href="|"$)/, '')
 			publication_title = title_link.match(/>(.*)<\/a>/)[0].gsub(/(^>|<\/a>$)/, '')
 			publisher         = publication_link.match(/((.*)[.])?(.*)[.](.*)[\/]/)[0].strip
 			# authors of it
@@ -66,13 +70,13 @@ def parse_results (results, user='(.*)')
 			# dictionary holding the data
 			res               = Hash.new '__null__'
 
-			res['__title__']     = publication_title.gsub(/"/, '\"')
-			res['__link__']      = publication_link.gsub(/"/, '\"')
-			res['__authors__']   = authors_div.gsub(/"/, '\"')
-			res['__abstract__']  = abstract_div.gsub(/"/, '\"')
-			res['__publisher__'] = ($site_names[publisher.gsub(/(^http(s?):\/\/|\/$)/, '')] or publisher).gsub(/"/, '\"')
+			res['__title__']     = publication_title.gsub(/"/, '\"').gsub(/<([^<>]*)>/, '')
+			res['__link__']      = publication_link.gsub(/"/, '\"').gsub(/<([^<>]*)>/, '')
+			res['__authors__']   = authors_div.gsub(/"/, '\"').gsub(/<([^<>]*)>/, '')
+			res['__abstract__']  = abstract_div.gsub(/"/, '\"').gsub(/<([^<>]*)>/, '')
+			res['__publisher__'] = ($site_names[publisher.gsub(/(^http(s?):\/\/|\/$)/, '')] or publisher).gsub(/"/, '\"').gsub(/<([^<>]*)>/, '')
 			unless pdf_link.nil?
-				res['__pdf__'] = pdf_link.gsub(/"/, '\"')
+				res['__pdf__'] = pdf_link.gsub(/"/, '\"').gsub(/<([^<>]*)>/, '')
 			end
 
 			# append to return variable
@@ -84,13 +88,14 @@ def parse_results (results, user='(.*)')
 end
 
 
+
 BASE_URL    = 'https://scholar.google.com/scholar?q='
 
 # default path for input, output, and logging files
 INPUT_FILE  = './input.users'
 OUTPUT_FILE = './output.results'
 LOGGER      = './logger'
-CROSS_CHECK = false
+CROSS_CHECK = true
 
 OptionParser.new do |options|
 	options.banner = 'Usage: automater.rb [-i<input file> -o<output file> -l<logger file>]'
@@ -112,11 +117,11 @@ OptionParser.new do |options|
 		exit 0
 	end
 
-	options.on('-c' '--CROSSCHECK', 'Whether to uses simple RegEx based on user name to validate result or not ... Default is false') do
-		CROSS_CHECK = true
+	options.on('-noc' '--NOCHECK-USING-LASTNAME', 'To disable the use of the last name as a RegEx based to validate result or not') do
+		CROSS_CHECK = false
 	end
 end.parse!
-logging = Logger.new open(LOGGER, 'w')
+logging = Logger.new open(LOGGER, 'a') # Append to old log file instead of overwriting it
 
 begin
 	exit_status = 0
@@ -157,8 +162,14 @@ begin
 				end
 				results = results.sub(/<div id="gs_ccl_bottom">/, '').strip
 
+				# parameters of the parsing function
+				params = {:results => results}
+				if CROSS_CHECK
+					params[:check_re] = /(.*)#{user.split(' ')[-1]}(.*)/i
+				end
+
 				# parse the results, for specified user as to avoid any misidentification
-				results = parse_results(results)
+				results = parse_results(params)
 
 				# prepare what's to be written to output file
 				out << "\t\"#{id}\": {\n\t\t\"__user__\" : \"#{user}\",\n\t\t\"__researches__\" : #{if results != [] then '[' else 'null' end}"
