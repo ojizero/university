@@ -4,10 +4,12 @@
 ##  A script used to automatically search on Google Scholar     ##
 ##  for researches made by certain users, it is intended to     ##
 ##  be run as a cronjob to periodically update some database    ##
-##  using a following script/program                            ##
+##  using a following script/program.                           ##
+## ############################################################ ##
+## ############# #LICENSED UNDER THE #MIT LICENSE ############# ##
 ## ############################################################ ##
 
-VERSION_NUMBER = 1.0
+VERSION_NUMBER = '1.0.1'
 
 require 'optparse'
 require 'open-uri'
@@ -23,10 +25,15 @@ $site_names['link.springer.com']   = 'Springer'
 $site_names['springer.com']        = 'Springer'
 
 
+# Main functionality of the program, parses a block of an HTML page producing a Hash map with the results per person
+# @param params Hash contains the parameters used by the function,
+#       :results containing the HTML block with the results,
+#       :check_re (optional) containing the regular expression for validation
+# @return returns an Array containing Hash tables holding the data of each result
 def parse_results (params)
 	# Parses results and returns an array for each result as JSON
 	# Function parameters
-	results = params[:results]
+	results  = params[:results]
 	check_re = (params[:check_re] or /(.*)/)
 
 	ret = []
@@ -35,13 +42,13 @@ def parse_results (params)
 
 	results.split(/<div class="gs_r">/).each do |result|
 		# IGNORE result
-		# if it's empty skip this iteration
+		# if it's empty
 		# OR
-		# if result is user's home page (not paper) skip to next iteration
+		# if result is user's home page (not paper)
 		# OR
 		# if result is a user citation
 		# OR
-		# if it's made not by the user
+		# if it's not validated by the string
 		unless result == '' or result =~ /(.*(user profiles for).*|\[citation\])/i or (not result =~ check_re)
 			# get the section containing the pdf info and link
 			# remove beginning div tag and trailing div from next
@@ -87,16 +94,20 @@ def parse_results (params)
 	ret
 end
 
-
-
+#####################
+## Program globals ##
+#####################
+# Google Scholar link
 BASE_URL    = 'https://scholar.google.com/scholar?q='
-
 # default path for input, output, and logging files
 INPUT_FILE  = './input.users'
 OUTPUT_FILE = './output.results'
 LOGGER      = './logger'
 CROSS_CHECK = true
 
+#####################################
+## HANDLING OPTIONS OF THE PROGRAM ##
+#####################################
 OptionParser.new do |options|
 	options.banner = 'Usage: automater.rb [-i<input file> -o<output file> -l<logger file>]'
 
@@ -123,6 +134,10 @@ OptionParser.new do |options|
 end.parse!
 logging = Logger.new open(LOGGER, 'a') # Append to old log file instead of overwriting it
 
+
+####################
+## MAIN CODE BODY ##
+####################
 begin
 	exit_status = 0
 	logging.info "#{Time.now} -> Began executing ..."
@@ -133,13 +148,13 @@ begin
 
 	logging.info 'Opened files ...'
 
-	output.write "{\n"
+	# Data to be written to output file
+	out = ''
 	# Foreach user, search on Google Scholar, parse results and write them to output file
 	input.each_line do |line|
 		unless line =~ /^\s*[\{\}]?\s*$/
 			info = line.split(':')
 			id   = info[0].strip.gsub(/["']/, ''); user = info[1].strip.gsub(/(^["']|["']\s*(,)?\s*$)/, '').strip
-			out  = ''
 
 			logging.info "Processing user #{user} of id #{id} ..."
 
@@ -163,7 +178,7 @@ begin
 				results = results.sub(/<div id="gs_ccl_bottom">/, '').strip
 
 				# parameters of the parsing function
-				params = {:results => results}
+				params  = {:results => results}
 				if CROSS_CHECK
 					params[:check_re] = /(.*)#{user.split(' ')[-1]}(.*)/i
 				end
@@ -172,7 +187,7 @@ begin
 				results = parse_results(params)
 
 				# prepare what's to be written to output file
-				out << "\t\"#{id}\": {\n\t\t\"__user__\" : \"#{user}\",\n\t\t\"__researches__\" : #{if results != [] then '[' else 'null' end}"
+				out << "\n\t\"#{id}\": {\n\t\t\"__user__\" : \"#{user}\",\n\t\t\"__researches__\" : #{if results != [] then '[' else 'null' end}"
 
 				# if results returned aren't an empty set, then do processing
 				if results != []
@@ -194,10 +209,10 @@ begin
 				logging.info "Done processing #{user} of id #{id} ... no issues"
 			end # END of website processing
 			# write data to output file, ignoring trailing comma
-			output.write "#{out[0...-1]}\n"
 		end # END of line processing
 	end # END of input file processing
-	output.write "}\n"
+	# Write to output file, avoid the ignore comma from the last iteration
+	output.write "{\n#{out[0...-1]}\n}\n"
 rescue Exception => e
 	logging.error "#{e.message}, #{e.backtrace}"
 	exit_status = -1
