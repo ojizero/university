@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a27c6629-ad60-4196-97ea-bb877d305762" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Git/university/ResearchFinder/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../../Git/university/ResearchFinder/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Git/university/ResearchFinder/Research-finder.php" afterPath="$PROJECT_DIR$/../../Git/university/ResearchFinder/Research-finder.php" />
     </list>
     <ignored path="ResearchFinder.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -23,27 +22,17 @@
     <favorites_list name="ResearchFinder" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="Research-finder.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Research-finder.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="419">
-              <caret line="91" column="74" selection-start-line="91" selection-start-column="74" selection-end-line="91" selection-end-column="74" />
+            <state relative-caret-position="203">
+              <caret line="83" column="139" selection-start-line="83" selection-start-column="139" selection-end-line="83" selection-end-column="139" />
               <folding>
-                <element signature="e#8#396#0#PHP" expanded="true" />
+                <element signature="e#8#394#0#PHP" expanded="true" />
                 <element signature="n#prepare_data#0;n#ResearchFinder#0;n#!!top" expanded="false" />
                 <element signature="n#call_finder#0;n#ResearchFinder#0;n#!!top" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="output.results" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/AutoResearchSearcher/output.results">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="108">
-              <caret line="6" column="21" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -149,8 +138,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -258,7 +247,8 @@
       <workItem from="1477646691260" duration="47000" />
       <workItem from="1477646742445" duration="71000" />
       <workItem from="1477646815702" duration="2662000" />
-      <workItem from="1477651888653" duration="22430000" />
+      <workItem from="1477651888653" duration="26258000" />
+      <workItem from="1477938506024" duration="1352000" />
     </task>
     <task id="LOCAL-00001" summary="Began Work">
       <created>1477652170128</created>
@@ -271,17 +261,17 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25611000" />
+    <option name="totallyTimeSpent" value="30791000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-1" width="1600" height="901" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26804122" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2719072" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297587" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297587" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -324,7 +314,27 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#8#396#0#PHP" expanded="true" />
+            <element signature="e#8#394#0#PHP" expanded="true" />
+            <element signature="n#prepare_data#0;n#ResearchFinder#0;n#!!top" expanded="false" />
+            <element signature="n#call_finder#0;n#ResearchFinder#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Views/admin_page.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Research-finder.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#8#394#0#PHP" expanded="true" />
             <element signature="n#prepare_data#0;n#ResearchFinder#0;n#!!top" expanded="false" />
             <element signature="n#call_finder#0;n#ResearchFinder#0;n#!!top" expanded="false" />
           </folding>
@@ -336,7 +346,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#8#396#0#PHP" expanded="true" />
+            <element signature="e#8#394#0#PHP" expanded="true" />
             <element signature="n#prepare_data#0;n#ResearchFinder#0;n#!!top" expanded="false" />
             <element signature="n#call_finder#0;n#ResearchFinder#0;n#!!top" expanded="false" />
           </folding>
@@ -348,7 +358,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#8#396#0#PHP" expanded="true" />
+            <element signature="e#8#394#0#PHP" expanded="true" />
             <element signature="n#prepare_data#0;n#ResearchFinder#0;n#!!top" expanded="false" />
             <element signature="n#call_finder#0;n#ResearchFinder#0;n#!!top" expanded="false" />
           </folding>
@@ -360,7 +370,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#8#396#0#PHP" expanded="true" />
+            <element signature="e#8#394#0#PHP" expanded="true" />
             <element signature="n#prepare_data#0;n#ResearchFinder#0;n#!!top" expanded="false" />
             <element signature="n#call_finder#0;n#ResearchFinder#0;n#!!top" expanded="false" />
           </folding>
@@ -372,7 +382,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#8#396#0#PHP" expanded="true" />
+            <element signature="e#8#394#0#PHP" expanded="true" />
             <element signature="n#prepare_data#0;n#ResearchFinder#0;n#!!top" expanded="false" />
             <element signature="n#call_finder#0;n#ResearchFinder#0;n#!!top" expanded="false" />
           </folding>
@@ -383,7 +393,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -435,18 +444,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/AutoResearchSearcher/output.results">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="6" column="21" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
+        <state relative-caret-position="144">
+          <caret line="8" column="28" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Research-finder.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="419">
-          <caret line="91" column="74" selection-start-line="91" selection-start-column="74" selection-end-line="91" selection-end-column="74" />
+        <state relative-caret-position="203">
+          <caret line="83" column="139" selection-start-line="83" selection-start-column="139" selection-end-line="83" selection-end-column="139" />
           <folding>
-            <element signature="e#8#396#0#PHP" expanded="true" />
+            <element signature="e#8#394#0#PHP" expanded="true" />
             <element signature="n#prepare_data#0;n#ResearchFinder#0;n#!!top" expanded="false" />
             <element signature="n#call_finder#0;n#ResearchFinder#0;n#!!top" expanded="false" />
           </folding>

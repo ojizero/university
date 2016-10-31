@@ -7,7 +7,7 @@
  * Version: 1.0
  * Author: oji
  * Author URI: https://github.com/ojizero/
- * License: GPLv3
+ * License: MIT
  */
 
 $PLUGIN_PATH      = plugin_dir_path(__FILE__);
@@ -73,7 +73,7 @@ class ResearchFinder {
 		GLOBAL $INPUT_PATH;
 
 		$data_file = fopen($INPUT_PATH, 'r');
-		$data      = json_decode(fread($data_file, filesize($INPUT_PATH)));
+		$data      = json_decode(fread($data_file, filesize($INPUT_PATH)), true);
 		fclose($data_file);
 
 		foreach ($data as $uid => $udata):
@@ -81,19 +81,18 @@ class ResearchFinder {
 			foreach ($udata['__researches__'] as $research_data):
 				$meta_info = [
 					'wpcf-research-title'   => strip_tags($research_data['__title__']),
-					'wpcf-author'           => $uname,
-					'wpcf-author-2'         => strip_tags(''), # TODO
+					'wpcf-author'           => $research_data['__authors__']->preg_split('/,/'), # $uname, # assuming it is taken as an array
 					'wpcf-research'         => strip_tags($research_data['__pdf__']),
 					'wpcf-publication-date' => '' . time(),
 					'wpcf-publishedin'      => strip_tags($research_data['__publisher__']),
 					'wpcf-publication-url'  => strip_tags($research_data['__url__']),
 				];
 				$post_info = [
-					'ID'          => 0, # Let auto_increment do it's thing
+					'ID'          => 0, # Let auto_increment do its thing
 					'post_author' => intval($uid),
 					'post_title'  => strip_tags("Research: {$research_data['__title__']}"),
 					'post_status' => 'pending',
-					'post_type'   => '', # TODO
+					'post_type'   => 'research',
 					'meta_input'  => $meta_info,
 				];
 
