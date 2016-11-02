@@ -26,8 +26,8 @@
       <file leaf-file-name="Research-finder.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Research-finder.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="203">
-              <caret line="83" column="139" selection-start-line="83" selection-start-column="139" selection-end-line="83" selection-end-column="139" />
+            <state relative-caret-position="86">
+              <caret line="72" column="16" selection-start-line="72" selection-start-column="16" selection-end-line="72" selection-end-column="16" />
               <folding>
                 <element signature="e#8#394#0#PHP" expanded="true" />
                 <element signature="n#prepare_data#0;n#ResearchFinder#0;n#!!top" expanded="false" />
@@ -248,7 +248,7 @@
       <workItem from="1477646742445" duration="71000" />
       <workItem from="1477646815702" duration="2662000" />
       <workItem from="1477651888653" duration="26258000" />
-      <workItem from="1477938506024" duration="1352000" />
+      <workItem from="1477938506024" duration="3300000" />
     </task>
     <task id="LOCAL-00001" summary="Began Work">
       <created>1477652170128</created>
@@ -261,7 +261,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30791000" />
+    <option name="totallyTimeSpent" value="32739000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-1" width="1600" height="901" extended-state="6" />
@@ -452,8 +452,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Research-finder.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="83" column="139" selection-start-line="83" selection-start-column="139" selection-end-line="83" selection-end-column="139" />
+        <state relative-caret-position="86">
+          <caret line="72" column="16" selection-start-line="72" selection-start-column="16" selection-end-line="72" selection-end-column="16" />
           <folding>
             <element signature="e#8#394#0#PHP" expanded="true" />
             <element signature="n#prepare_data#0;n#ResearchFinder#0;n#!!top" expanded="false" />

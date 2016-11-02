@@ -109,7 +109,7 @@ CROSS_CHECK = true
 ## HANDLING OPTIONS OF THE PROGRAM ##
 #####################################
 OptionParser.new do |options|
-	options.banner = 'Usage: automater.rb [-i<input file> -o<output file> -l<logger file>]'
+	options.banner = 'Usage: automater.rb [-i<input file> -o<output file> -l<logger file> -noc]'
 
 	options.on('-i', '--input INPUT', 'Specify input file ... Default is "./input.users"') do |input|
 		INPUT_FILE = input

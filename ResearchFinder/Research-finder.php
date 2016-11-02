@@ -70,6 +70,8 @@ class ResearchFinder {
 	 * Retrieves the results of the Ruby script, and adds them to the database properly
 	 **/
 	public function retrieve_results () {
+		# FIXME Tested independently works properly except for the wpcf-author data
+
 		GLOBAL $INPUT_PATH;
 
 		$data_file = fopen($INPUT_PATH, 'r');
@@ -81,7 +83,7 @@ class ResearchFinder {
 			foreach ($udata['__researches__'] as $research_data):
 				$meta_info = [
 					'wpcf-research-title'   => strip_tags($research_data['__title__']),
-					'wpcf-author'           => $research_data['__authors__']->preg_split('/,/'), # $uname, # assuming it is taken as an array
+					'wpcf-author'           => preg_split('/,/', $research_data['__authors__']), # $uname, # assuming it is taken as an array
 					'wpcf-research'         => strip_tags($research_data['__pdf__']),
 					'wpcf-publication-date' => '' . time(),
 					'wpcf-publishedin'      => strip_tags($research_data['__publisher__']),
