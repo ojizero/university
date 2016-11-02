@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a27c6629-ad60-4196-97ea-bb877d305762" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Git/university/ResearchFinder/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../../Git/university/ResearchFinder/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="a27c6629-ad60-4196-97ea-bb877d305762" name="Default" comment="" />
     <ignored path="ResearchFinder.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -248,7 +246,7 @@
       <workItem from="1477646742445" duration="71000" />
       <workItem from="1477646815702" duration="2662000" />
       <workItem from="1477651888653" duration="26258000" />
-      <workItem from="1477938506024" duration="3300000" />
+      <workItem from="1477938506024" duration="3339000" />
     </task>
     <task id="LOCAL-00001" summary="Began Work">
       <created>1477652170128</created>
@@ -261,10 +259,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="32739000" />
+    <option name="totallyTimeSpent" value="32778000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="-1" width="1600" height="901" extended-state="6" />
+    <frame x="0" y="-1" width="1600" height="901" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2719072" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />

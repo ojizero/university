@@ -9,7 +9,7 @@
 ## ############# #LICENSED UNDER THE #MIT LICENSE ############# ##
 ## ############################################################ ##
 
-VERSION_NUMBER = '1.0.1'
+VERSION_NUMBER = '1.0.1a'
 
 require 'optparse'
 require 'open-uri'
@@ -68,22 +68,22 @@ def parse_results (params)
 			title_link        = inf_div.match(/<h\d(.*)<\/h\d>/)[0].gsub(/^<h\d(.*)><a|<\/h\d>$/, '')
 			publication_link  = title_link.match(/href="([^"]*)"/)[0].gsub(/(^href="|"$)/, '')
 			publication_title = title_link.match(/>(.*)<\/a>/)[0].gsub(/(^>|<\/a>$)/, '')
-			publisher         = publication_link.match(/((.*)[.])?(.*)[.](.*)[\/]/)[0].strip
-			# authors of it
-			authors_div       = inf_div.match(/<div class="gs_a">(.*)<div class="gs_rs">/)[0].gsub(/^<div class="gs_a">|<div class="gs_rs">$/, '')
+			# publisher         = publication_link.match(/(.*)([.])?(.*)[.](.*)[\/]/)[0].strip
+			# authors of it, also contains the link of the publisher as well as a tag of some sort referring to the topic
+			authors_div_arr   = inf_div.match(/<div class="gs_a">(.*)<div class="gs_rs">/)[0].gsub(/^<div class="gs_a">|<div class="gs_rs">$/, '').gsub(/"/, '\"').gsub(/<([^<>]*)>/, '').split('-')
 			# abstract extracted by Google Scholar
 			abstract_div      = inf_div.match(/<div class="gs_rs">(.*)<div class="gs_fl">/)[0].gsub(/^<div class="gs_rs">|<div class="gs_fl">$/, '')
 
 			# dictionary holding the data
 			res               = Hash.new '__null__'
 
-			res['__title__']     = publication_title.gsub(/"/, '\"').gsub(/<([^<>]*)>/, '')
-			res['__link__']      = publication_link.gsub(/"/, '\"').gsub(/<([^<>]*)>/, '')
-			res['__authors__']   = authors_div.gsub(/"/, '\"').gsub(/<([^<>]*)>/, '')
-			res['__abstract__']  = abstract_div.gsub(/"/, '\"').gsub(/<([^<>]*)>/, '')
-			res['__publisher__'] = ($site_names[publisher.gsub(/(^http(s?):\/\/|\/$)/, '')] or publisher).gsub(/"/, '\"').gsub(/<([^<>]*)>/, '')
+			res['__title__']     = publication_title.gsub(/"/, '\"').gsub(/<([^<>]*)>/, '').strip
+			res['__link__']      = publication_link.gsub(/"/, '\"').gsub(/<([^<>]*)>/, '').strip
+			res['__authors__']   = authors_div_arr[0].strip # gsub(/"/, '\"').gsub(/<([^<>]*)>/, '')
+			res['__abstract__']  = abstract_div.gsub(/"/, '\"').gsub(/<([^<>]*)>/, '').strip
+			res['__publisher__'] = ($site_names[authors_div_arr[-1].strip] or authors_div_arr[-1]).strip # .gsub(/"/, '\"').gsub(/<([^<>]*)>/, '')
 			unless pdf_link.nil?
-				res['__pdf__'] = pdf_link.gsub(/"/, '\"').gsub(/<([^<>]*)>/, '')
+				res['__pdf__'] = pdf_link.gsub(/"/, '\"').gsub(/<([^<>]*)>/, '').strip
 			end
 
 			# append to return variable
@@ -98,6 +98,8 @@ end
 ## Program globals ##
 #####################
 # Google Scholar link
+# In code adds the query after `q=`
+# add `&num=20` after string to get the max number of results per page Scholar gives.
 BASE_URL    = 'https://scholar.google.com/scholar?q='
 # default path for input, output, and logging files
 INPUT_FILE  = './input.users'
@@ -150,7 +152,7 @@ begin
 
 	# Data to be written to output file
 	out = ''
-	# Foreach user, search on Google Scholar, parse results and write them to output file
+	# Foreach user, search on Google Scholar, parse results of the first page and write them to output file
 	input.each_line do |line|
 		unless line =~ /^\s*[\{\}]?\s*$/
 			info = line.split(':')
