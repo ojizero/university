@@ -71,7 +71,7 @@ class ResearchFinder {
 	 **/
 	public function retrieve_results () {
 		# FIXME Tested independently works properly except for the wpcf-author data
-
+		# Use SQL stuff directly
 		GLOBAL $INPUT_PATH;
 
 		$data_file = fopen($INPUT_PATH, 'r');
