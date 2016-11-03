@@ -72,7 +72,7 @@ class ResearchFinder {
 	public function retrieve_results () {
 		# FIXME Tested independently works properly except for the wpcf-author data
 		# Use SQL stuff directly
-		GLOBAL $INPUT_PATH;
+		GLOBAL $INPUT_PATH, $wpdb;
 
 		$data_file = fopen($INPUT_PATH, 'r');
 		$data      = json_decode(fread($data_file, filesize($INPUT_PATH)), true);
@@ -83,7 +83,7 @@ class ResearchFinder {
 			foreach ($udata['__researches__'] as $research_data):
 				$meta_info = [
 					'wpcf-research-title'   => strip_tags($research_data['__title__']),
-					'wpcf-author'           => preg_split('/,/', $research_data['__authors__']), # $uname, # assuming it is taken as an array
+//					'wpcf-author'           => preg_split('/,/', $research_data['__authors__']), # $uname, # assuming it is taken as an array
 					'wpcf-research'         => strip_tags($research_data['__pdf__']),
 					'wpcf-publication-date' => '' . time(),
 					'wpcf-publishedin'      => strip_tags($research_data['__publisher__']),
@@ -98,7 +98,22 @@ class ResearchFinder {
 					'meta_input'  => $meta_info,
 				];
 
-				wp_insert_post($post_info);
+				$post_id = wp_insert_post($post_info);
+				foreach (preg_split('/,/', $research_data['__authors__']) as $author_name):
+					$wpdb->insert(
+						'wp_postmeta',
+						[
+							'post_id'    => $post_id,
+							'meta_key'   => 'wpcf-author',
+							'meta_value' => $author_name
+						],
+						[
+							'%d',
+							'%s',
+							'%s'
+						]
+					);
+				endforeach;
 			endforeach;
 		endforeach;
 	}
