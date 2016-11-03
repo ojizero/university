@@ -1,0 +1,30 @@
+INPUT:
+{
+	id: "name",
+	.
+	.
+	.
+}
+
+
+OUTPUT:
+{
+	id: {
+			"__name__": $NAME,
+			[PAPER_JOSN, ...]
+		},
+	.
+	.
+	.
+}
+
+
+PAPER_JSON:
+{
+	"Title": "",
+	"URL": "",
+	"Abstract": "",
+	"Publisher": "",
+	"Date": "",
+	"PDF Link": "" # <- optional
+}
