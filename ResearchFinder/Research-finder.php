@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * Plugin Name: Research Finder
  * Description: A Plugin that takes the users in roles related to research, then starts an external Ruby script to find the researches of those users in Google Scholar, then adds those researches as a custom type (supposed to already exist) named Research.
@@ -70,8 +69,6 @@ class ResearchFinder {
 	 * Retrieves the results of the Ruby script, and adds them to the database properly
 	 **/
 	public function retrieve_results () {
-		# FIXME Tested independently works properly except for the wpcf-author data
-		# Use SQL stuff directly
 		GLOBAL $INPUT_PATH, $wpdb;
 
 		$data_file = fopen($INPUT_PATH, 'r');
@@ -80,6 +77,7 @@ class ResearchFinder {
 
 		foreach ($data as $uid => $udata):
 			$uname = strip_tags($udata['__user__']);
+
 			foreach ($udata['__researches__'] as $research_data):
 				$meta_info = [
 					'wpcf-research-title'   => strip_tags($research_data['__title__']),
@@ -115,6 +113,8 @@ class ResearchFinder {
 					);
 				endforeach;
 			endforeach;
+
+			add_user_meta(intval($uid), '__has_pending_research__', 'true');
 		endforeach;
 	}
 
