@@ -14,6 +14,7 @@ VERSION_NUMBER = '1.0.1a'
 require 'optparse'
 require 'open-uri'
 require 'logger'
+# require 'json'
 
 
 # place website names here, default to parsing the title tag or going to google for other stuff
@@ -75,14 +76,16 @@ def parse_results (params)
 			abstract_div      = inf_div.match(/<div class="gs_rs">(.*)<div class="gs_fl">/)[0].gsub(/^<div class="gs_rs">|<div class="gs_fl">$/, '')
 
 			# dictionary holding the data
-			res               = Hash.new '__null__'
+			res               = {}
 
 			res['__title__']     = publication_title.gsub(/"/, '\"').gsub(/<([^<>]*)>/, '').strip
 			res['__link__']      = publication_link.gsub(/"/, '\"').gsub(/<([^<>]*)>/, '').strip
 			res['__authors__']   = authors_div_arr[0].strip # gsub(/"/, '\"').gsub(/<([^<>]*)>/, '')
 			res['__abstract__']  = abstract_div.gsub(/"/, '\"').gsub(/<([^<>]*)>/, '').strip
 			res['__publisher__'] = ($site_names[authors_div_arr[-1].strip] or authors_div_arr[-1]).strip # .gsub(/"/, '\"').gsub(/<([^<>]*)>/, '')
-			unless pdf_link.nil?
+			if pdf_link.nil?
+				res['__pdf__'] = nil
+			else
 				res['__pdf__'] = pdf_link.gsub(/"/, '\"').gsub(/<([^<>]*)>/, '').strip
 			end
 
@@ -151,7 +154,7 @@ begin
 	logging.info 'Opened files ...'
 
 	# Data to be written to output file
-	out = ''
+	out = {}
 	# Foreach user, search on Google Scholar, parse results of the first page and write them to output file
 	input.each_line do |line|
 		unless line =~ /^\s*[\{\}]?\s*$/
@@ -189,32 +192,41 @@ begin
 				results = parse_results(params)
 
 				# prepare what's to be written to output file
-				out << "\n\t\"#{id}\": {\n\t\t\"__user__\" : \"#{user}\",\n\t\t\"__researches__\" : #{if results != [] then '[' else 'null' end}"
-
-				# if results returned aren't an empty set, then do processing
-				if results != []
-					# remove HTML tags requires extra libraries
-					# for simplicity that is left for the PHP side of the code
-					results.each do |res|
-						# made into one liner to avoid breaking the formatting in file when refactoring the code in IDEs
-						# apologies to anyone trying to decipher this lol
-						out << "\n\t\t\t{\n\t\t\t\t\"__title__\" : \"#{res['__title__']}\",\n\t\t\t\t\"__url__\" : \"#{res['__link__']}\",\n\t\t\t\t\"__authors__\" : \"#{res['__authors__']}\",\n\t\t\t\t\"__abstract__\" : \"#{res['__abstract__']}\",\n\t\t\t\t\"__publisher__\" : \"#{res['__publisher__']}\",\n\t\t\t\t\"__pdf__\" : \"#{res['__pdf__']}\"\n\t\t\t},"
-					end
-
-					# remove trailing comma
-					# remove quotes around any defaulted null string
-					out = out[0...-1].gsub(/["]__null__["]/, 'null')
-					out << "\n\t\t]"
-				end
-
-				out << "\n\t},"
+				out[id] = {
+					:__user__       => user,
+					:__researches__ => results
+				}
+				# out << "\n\t\"#{id}\": {\n\t\t\"__user__\" : \"#{user}\",\n\t\t\"__researches__\" : #{
+				# if results != [] then
+				# 	'['
+				# else
+				# 	'null'
+				# end}"
+				#
+				# # if results returned aren't an empty set, then do processing
+				# if results != []
+				# 	# remove HTML tags requires extra libraries
+				# 	# for simplicity that is left for the PHP side of the code
+				# 	results.each do |res|
+				# 		# made into one liner to avoid breaking the formatting in file when refactoring the code in IDEs
+				# 		# apologies to anyone trying to decipher this lol
+				# 		out << "\n\t\t\t{\n\t\t\t\t\"__title__\" : \"#{res['__title__']}\",\n\t\t\t\t\"__url__\" : \"#{res['__link__']}\",\n\t\t\t\t\"__authors__\" : \"#{res['__authors__']}\",\n\t\t\t\t\"__abstract__\" : \"#{res['__abstract__']}\",\n\t\t\t\t\"__publisher__\" : \"#{res['__publisher__']}\",\n\t\t\t\t\"__pdf__\" : \"#{res['__pdf__']}\"\n\t\t\t},"
+				# 	end
+				#
+				# 	# remove trailing comma
+				# 	# remove quotes around any defaulted null string
+				# 	out = out[0...-1].gsub(/["]__null__["]/, 'null')
+				# 	out << "\n\t\t]"
+				# end
+				#
+				# out << "\n\t},"
 				logging.info "Done processing #{user} of id #{id} ... no issues"
 			end # END of website processing
 			# write data to output file, ignoring trailing comma
 		end # END of line processing
 	end # END of input file processing
 	# Write to output file, avoid the ignore comma from the last iteration
-	output.write "{\n#{out[0...-1]}\n}\n"
+	output.write JSON.pretty_generate(out) #.to_json # "{\n#{out[0...-1]}\n}\n"
 rescue Exception => e
 	logging.error "#{e.message}, #{e.backtrace}"
 	exit_status = -1
