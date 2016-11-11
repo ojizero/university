@@ -53,10 +53,9 @@ def parse_results (params)
 	# Function parameters
 	results  = params[:results]
 	check_re = (params[:check_re] or /(.*)/)
-	if USE_INDEX
-		newly_added = Set.new
-	end
-	ret = []
+
+	newly_added = Set.new
+	ret         = []
 
 	results = results.gsub(/<\/div>|<div id="gs_ccl_results">/, '').strip # remove closing divs
 
@@ -71,40 +70,46 @@ def parse_results (params)
 		# if it's not validated by the string
 		# OR
 		# if it's already in the index
-		unless result == '' or result =~ /(.*(user profiles for).*|\[citation\])/i or (not result =~ check_re) or (USE_INDEX and INDEX.include? result + "\n")
-			# get the section containing the pdf info and link
-			# remove beginning div tag and trailing div from next
-			pdf_div  = result.match(/<div class="gs_ggs gs_fl">(.*)<div class="gs_ri">/)
-			# no guarantee for pdf div from Google
-			pdf_link = nil
-			unless pdf_div.nil?
-				pdf_div  = pdf_div[0].gsub(/(<div class="gs_ggs gs_fl">|<div class="gs_ri">$)/, '')
-				pdf_link = pdf_div.match(/href="([^"]*)"/)[0].gsub(/(^href="|"$)/, '')
-			end
-
+		unless result == '' or result =~ /(.*(user profiles for).*|\[citation\])/i or (not result =~ check_re)
 			# this variable contains the link to the PDF from Google Scholar, (regardless paid or not)
 			# this one hold the rest of the data as HTML content
 			inf_div           = result.match(/<div class="gs_ri">(.*)$/)[0].gsub(/^<div class="gs_ri">/, '')
 
 			# title of paper as well as link to it
 			title_link        = inf_div.match(/<h\d(.*)<\/h\d>/)[0].gsub(/^<h\d(.*)><a|<\/h\d>$/, '')
-			publication_link  = title_link.match(/href="([^"]*)"/)[0].gsub(/(^href="|"$)/, '')
 			publication_title = title_link.match(/>(.*)<\/a>/)[0].gsub(/(^>|<\/a>$)/, '')
-			# publisher         = publication_link.match(/(.*)([.])?(.*)[.](.*)[\/]/)[0].strip
+			title_sha2        = Digest::SHA2.hexdigest(publication_title)
+			# if title is already indexed then skip
+			if USE_INDEX and INDEX.include? (title_sha2 + "\n")
+				next
+			end
+
+			publication_link = title_link.match(/href="([^"]*)"/)[0].gsub(/(^href="|"$)/, '')
 			# authors of it, also contains the link of the publisher as well as a tag of some sort referring to the topic
-			authors_div_arr   = inf_div.match(/<div class="gs_a">(.*)<div class="gs_rs">/)[0].gsub(/^<div class="gs_a">|<div class="gs_rs">$/, '').gsub(/"/, '\"').gsub(/<([^<>]*)>/, '').split('-')
+			authors_div_arr  = inf_div.match(/<div class="gs_a">(.*)<div class="gs_rs">/)[0].gsub(/^<div class="gs_a">|<div class="gs_rs">$/, '').gsub(/"/, '\"').gsub(/<([^<>]*)>/, '').split('-')
 			# abstract extracted by Google Scholar
-			abstract_div      = inf_div.match(/<div class="gs_rs">(.*)<div class="gs_fl">/)[0].gsub(/^<div class="gs_rs">|<div class="gs_fl">$/, '')
+			abstract_div     = inf_div.match(/<div class="gs_rs">(.*)<div class="gs_fl">/)[0].gsub(/^<div class="gs_rs">|<div class="gs_fl">$/, '')
+
+			# get the section containing the pdf info and link
+			# remove beginning div tag and trailing div from next
+			pdf_div          = result.match(/<div class="gs_ggs gs_fl">(.*)<div class="gs_ri">/)
+			# no guarantee for pdf div from Google
+			pdf_link         = nil
+			unless pdf_div.nil?
+				pdf_div  = pdf_div[0].gsub(/(<div class="gs_ggs gs_fl">|<div class="gs_ri">$)/, '')
+				pdf_link = pdf_div.match(/href="([^"]*)"/)[0].gsub(/(^href="|"$)/, '')
+			end
+
 
 			# dictionary holding the data
-			res               = {}
+			res = {}
 
 			res[:__title__]     = publication_title.gsub(/"/, '\"').gsub(/<([^<>]*)>/, '').strip
-			res[:__hash__]      = Digest::SHA2.hexdigest(result) # Digest::SHA2.hexdigest(res[:__title__])
 			res[:__link__]      = publication_link.gsub(/"/, '\"').gsub(/<([^<>]*)>/, '').strip
-			res[:__authors__]   = authors_div_arr[0].strip # gsub(/"/, '\"').gsub(/<([^<>]*)>/, '')
+			res[:__authors__]   = authors_div_arr[0].strip
 			res[:__abstract__]  = abstract_div.gsub(/"/, '\"').gsub(/<([^<>]*)>/, '').strip
-			res[:__publisher__] = ($SITE_NAMES[authors_div_arr[-1].strip] or authors_div_arr[-1]).strip # .gsub(/"/, '\"').gsub(/<([^<>]*)>/, '')
+			res[:__publisher__] = ($SITE_NAMES[authors_div_arr[-1].strip] or authors_div_arr[-1]).strip
+			res[:__hash__]      = title_sha2
 			pdf_link.nil? ? res[:__pdf__] = nil : res[:__pdf__] = pdf_link.gsub(/"/, '\"').gsub(/<([^<>]*)>/, '').strip
 
 			# append to return variable
@@ -217,9 +222,9 @@ begin
 		end # END of website processing
 	end # END of processing
 	# Write to output file
-	output.write JSON.pretty_generate(out) #.to_json # "{\n#{out[0...-1]}\n}\n"
+	output.write JSON.pretty_generate(out)
 rescue Exception => e
-	logging.error "***ERROR*** => #{e.message}, #{e.backtrace}"
+	logging.error "#{e.message}, #{e.backtrace}"
 	exit_status = -1
 ensure
 	# Close files
@@ -228,6 +233,7 @@ ensure
 
 	logging.info "Exiting program status #{exit_status}"
 
+	puts exit_status
 	# Exit program
 	exit exit_status
 end # END of program
