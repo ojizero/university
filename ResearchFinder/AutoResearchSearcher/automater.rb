@@ -9,7 +9,7 @@
 ## ############# #LICENSED UNDER THE #MIT LICENSE ############# ##
 ## ############################################################ ##
 
-VERSION_NUMBER = '1.0.1b'
+VERSION_NUMBER = '1.0.2'
 
 require 'digest/sha2'
 require 'optparse'
@@ -22,6 +22,7 @@ require 'set'
 ## Program globals ##
 #####################
 # Google Scholar link
+# FIXME this isn't allowed according to the Google `robots.txt` so the script is being blocked
 # In code adds the query after `q=`
 # add `&num=20` after string to get the max number of results per page Scholar gives.
 BASE_URL                           = 'https://scholar.google.com/scholar?q='
@@ -33,6 +34,9 @@ CROSS_CHECK                        = true
 USE_INDEX                          = false
 INDEX                              = nil
 INDEX_FILE                         = nil
+FAKE_USER_AGENT                    = false
+FIREFOX_USER_AGENT                 = 'Mozilla/5.0 (X11; Linux x86_64; rv:49.0) Gecko/20100101 Firefox/49.0'
+RUBY_USER_AGENT                    = 'Ruby'
 
 # place website names here, default to parsing the title tag or going to google for other stuff
 $SITE_NAMES                        = Hash.new nil
@@ -44,10 +48,10 @@ $SITE_NAMES['springer.com']        = 'Springer'
 
 
 # Main functionality of the program, parses a block of an HTML page producing a Hash map with the results per person
-# @param params Hash contains the parameters used by the function,
-#       :results    containing the HTML block with the results,
-#       :check_re   (optional) containing the regular expression for validation
-# @return returns an Array containing Hash tables holding the data of each result as a first element, and the Sha2 of the titles of the researches if USE_INDEX is enabled (else nil:NilClass)
+# @param [Hash] params contains the parameters used by the function,
+#   @option params [String] :results     containing the HTML block with the results,
+#   @option params [String] :check_re    (optional) containing the regular expression for validation
+# @return [Array<Hash>, Set<String>] returns an Array containing Hash tables holding the data of each result as a first element, and the Sha2 of the titles of the researches if USE_INDEX is enabled (else nil:NilClass)
 def parse_results (params)
 	# Parses results and returns an array for each result as JSON
 	# Function parameters
@@ -125,7 +129,7 @@ end
 ## HANDLING OPTIONS OF THE PROGRAM ##
 #####################################
 OptionParser.new do |options|
-	options.banner = 'Usage: automater.rb [-i<input file> -o<output file> -l<logger file>]'
+	options.banner = 'Usage: automater.rb [-i<input file> -o<output file> -l<logger file> -n<indexing file> -f -u]'
 
 	options.on('-i', '--input INPUT', 'Specify input file ... Default is "./input.users"') do |input|
 		INPUT_FILE = input
@@ -144,7 +148,8 @@ OptionParser.new do |options|
 		exit 0
 	end
 
-	options.on('-noc' '--NOCHECK-USING-LASTNAME', 'To disable the use of the last name as a RegEx based to validate result or not') do
+	# FIXME weird error here ?!
+	options.on('-u' '--no-check-last', 'To disable the use of the last name as a RegEx based to validate result or not ... Default true') do
 		CROSS_CHECK = false
 	end
 
@@ -155,8 +160,13 @@ OptionParser.new do |options|
 		INDEX_FILE = open(index_file, 'a')
 		f.close
 	end
+
+	options.on('-f', '--fake-user-agent', 'Fakes the User-Agent field in the HTTP request header as if it was Firefox browser ... Default is false') do
+		FAKE_USER_AGENT = true
+	end
 end.parse!
-logging = Logger.new open(LOGGER, 'a') # Append to old log file instead of overwriting it
+# Append to old log file instead of overwriting it
+logging = Logger.new open(LOGGER, 'a')
 
 
 ####################
@@ -183,43 +193,51 @@ begin
 
 		logging.info "Processing user #{user} of id #{id} ..."
 
-		open(BASE_URL + URI::escape(user)) do |page|
-			# get document by reading the page
-			document = page.readlines.join("\n")
+		begin
+			user_search_query = BASE_URL + URI::escape(user)
+			user_agent        = FAKE_USER_AGENT ? FIREFOX_USER_AGENT : RUBY_USER_AGENT
 
-			if document =~ /(.*)did not match any articles(.*)/i
-				logging.info "Done processing #{user} of id #{id} ... no results found ... skipping"
-				break
-			end
+			open(user_search_query, 'User-Agent' => user_agent) do |page|
+				# get document by reading the page
+				document = page.readlines.join("\n")
 
-			# from document body, get only the results <div>
-			results = document.match(/<div\s+id="gs_ccl_results">(.*)<div\s+id="gs_ccl_bottom">/)
-			if not results.nil?
-				results = results[0]
-			else
-				logging.info "Done processing #{user} of id #{id} ... results was `nil` ... avoided error by skipping"
-				break
-			end
-			results = results.sub(/<div id="gs_ccl_bottom">/, '').strip
+				if document =~ /(.*)did not match any articles(.*)/i
+					logging.info "Done processing #{user} of id #{id} ... no results found ... skipping"
+					break
+				end
 
-			# parameters of the parsing function
-			params  = {:results => results}
-			if CROSS_CHECK
-				params[:check_re] = /(.*)#{user.split(' ')[-1]}(.*)/i
-			end
-			# parse the results, for specified user as to avoid any misidentification
-			results = parse_results(params)
+				# from document body, get only the results <div>
+				results = document.match(/<div\s+id="gs_ccl_results">(.*)<div\s+id="gs_ccl_bottom">/)
+				if not results.nil?
+					results = results[0]
+				else
+					logging.info "Done processing #{user} of id #{id} ... results was `nil` ... avoided error by skipping"
+					break
+				end
+				results = results.sub(/<div id="gs_ccl_bottom">/, '').strip
 
-			# prepare what's to be written to output file
-			out[id] = {
-				:__user__       => user,
-				:__researches__ => results[0]
-			}
+				# parameters of the parsing function
+				params  = {:results => results}
+				if CROSS_CHECK
+					params[:check_re] = /(.*)#{user.split(' ')[-1]}(.*)/i
+				end
+				# parse the results, for specified user as to avoid any misidentification
+				results = parse_results(params)
 
-			# convert set to array, then to string, then replace ',' with LF and remove brackets
-			INDEX_FILE.write results[1].to_a.to_s.gsub(/, /, "\n").gsub(/[\["']/, '').gsub(/\]/, "\n") if USE_INDEX
-			logging.info "Done processing #{user} of id #{id} ... no issues"
-		end # END of website processing
+				# prepare what's to be written to output file
+				out[id] = {
+					:__user__       => user,
+					:__researches__ => results[0]
+				}
+
+				# convert set to array, then to string, then replace ',' with LF and remove brackets
+				INDEX_FILE.write results[1].to_a.to_s.gsub(/, /, "\n").gsub(/[\["']/, '').gsub(/\]/, "\n") if USE_INDEX
+				logging.info "Done processing #{user} of id #{id} ... no issues"
+			end # END of website processing for user
+		rescue HTTPServiceUnavailable => h
+			logging.error "HTTP 503 response from `#{user_search_query}` on user `#{user}`.\nMost probably cause is Google enforcing their `robots.txt` instructions via blocking. Possible (though not guaranteed) solution would be running this script with the option -f (--fake-user-agent) enabled if not already, to fake the User-Agent in header as if it was a Firefox browser.\n#{h.message}\n\nMoving on."
+			logging.info "Done processing #{user} of id #{id} ... no results retrieved due to HTTP503 response"
+		end
 	end # END of processing
 	# Write to output file
 	output.write JSON.pretty_generate(out)
@@ -233,7 +251,6 @@ ensure
 
 	logging.info "Exiting program status #{exit_status}"
 
-	puts exit_status
 	# Exit program
 	exit exit_status
 end # END of program
