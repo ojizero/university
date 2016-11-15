@@ -27,8 +27,8 @@ require 'set'
 # add `&num=20` after string to get the max number of results per page Scholar gives.
 BASE_URL                           = 'https://scholar.google.com/scholar?q='
 # default path for input, output, and logging files
-INPUT_FILE                         = './input.users'
-OUTPUT_FILE                        = './output.results'
+INPUT_FILE                         = './input.json'
+OUTPUT_FILE                        = './output.json'
 LOGGER                             = './logger'
 CROSS_CHECK                        = true
 USE_INDEX                          = false
@@ -72,8 +72,6 @@ def parse_results (params)
 		# if result is a user citation
 		# OR
 		# if it's not validated by the string
-		# OR
-		# if it's already in the index
 		unless result == '' or result =~ /(.*(user profiles for).*|\[citation\])/i or (not result =~ check_re)
 			# this variable contains the link to the PDF from Google Scholar, (regardless paid or not)
 			# this one hold the rest of the data as HTML content
@@ -83,8 +81,8 @@ def parse_results (params)
 			title_link        = inf_div.match(/<h\d(.*)<\/h\d>/)[0].gsub(/^<h\d(.*)><a|<\/h\d>$/, '')
 			publication_title = title_link.match(/>(.*)<\/a>/)[0].gsub(/(^>|<\/a>$)/, '')
 			title_sha2        = Digest::SHA2.hexdigest(publication_title)
-			# if title is already indexed then skip
-			if USE_INDEX and INDEX.include? (title_sha2 + "\n")
+			# if title is already indexed, or was visitied before in the current parse then skip
+			if USE_INDEX and INDEX.include? (title_sha2 + "\n") and newly_added.include? title_sha2
 				next
 			end
 
@@ -131,7 +129,7 @@ end
 OptionParser.new do |options|
 	options.banner = 'Usage: automater.rb [-i<input file> -o<output file> -l<logger file> -n<indexing file> -f -u]'
 
-	options.on('-i', '--input INPUT', 'Specify input file ... Default is "./input.users"') do |input|
+	options.on('-i', '--input INPUT', 'Specify input file ... Default is "./input.json"') do |input|
 		INPUT_FILE = input
 	end
 
@@ -182,7 +180,7 @@ begin
 	output = open(OUTPUT_FILE, 'w')
 	f.close
 
-	logging.info 'Opened files ...'
+	logging.info 'Prepared files ...'
 
 	# Data to be written to output file
 	out = {}
@@ -239,12 +237,12 @@ begin
 			logging.info "Done processing #{user} of id #{id} ... no results retrieved due to HTTP503 response"
 		end
 	end # END of processing
-	# Write to output file
-	output.write JSON.pretty_generate(out)
 rescue Exception => e
 	logging.error "#{e.message}, #{e.backtrace}"
 	exit_status = -1
 ensure
+	# Write to output file
+	output.write JSON.pretty_generate(out)
 	# Close files
 	output.close
 	INDEX_FILE.close unless INDEX_FILE.nil?
