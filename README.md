@@ -6,7 +6,7 @@ An Automated Payment System for Public Transport
 * Majdi Lada  -- 1120100
 * Weam Mikkawi -- 1120442
 
-# Parts
+# Project Sections
 ## ServerSide
 A PHP/Laravel application to handle the server side requests made by the system.
 Is a simple RESTful service that handles:
