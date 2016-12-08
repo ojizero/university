@@ -1,6 +1,12 @@
 # InterfaceProject
 An Automated Payment System for Public Transport
 
+# Makers
+* Ameer Alkam  -- 1120217
+* Majdi Ladda  -- 1120100
+* Weam Mikkawi -- 1120442
+
+# Parts
 ## ServerSide
 A PHP/Laravel application to handle the server side requests made by the system.
 Is a simple RESTful service that handles:
