@@ -2,9 +2,9 @@
 An Automated Payment System for Public Transport
 
 # Makers
-* Ameer Alkam\ \ --  1120217\ \ --\ \ @ojizero
-* Majdi Lada\ \ \ --  1120100\ \ --\ \ @majsl243
-* Weam Mikkawi\ --  1120442\ \ --\ \ 
+* Ameer Alkam   --  1120217  --  @ojizero
+* Majdi Lada    --  1120100  --  @majsl243
+* Weam Mikkawi  --  1120442  --  
 
 # Project Sections
 ## ServerSide
