@@ -3,7 +3,7 @@ An Automated Payment System for Public Transport
 
 # Makers
 * Ameer Alkam  -- 1120217
-* Majdi Ladda  -- 1120100
+* Majdi Lada  -- 1120100
 * Weam Mikkawi -- 1120442
 
 # Parts
