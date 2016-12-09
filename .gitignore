@@ -10,5 +10,5 @@ ServerSide/Homestead.yaml
 ServerSide/.env
 
 # Vi(m) specifics
-#*.sw*
+*.sw*
 #*~
