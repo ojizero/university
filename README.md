@@ -4,7 +4,7 @@ An Automated Payment System for Public Transport
 # Makers
 * Ameer Alkam (@ojizero) -- 1120217
 * Majdi Lada (@majsl243) -- 1120100
-* Weam Mikkawi () -- 1120442
+* Weam Mikkawi (@WeamMikkawi) -- 1120442
 
 # Project Sections
 ## ServerSide
