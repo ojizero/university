@@ -18,12 +18,17 @@ class CreateVehicleClientsTable extends Migration {
 			// Credentials
 			$table->string('permit')->unique();
 			$table->string('password');
-			$table->string('public_key');
-			$table->string('current_session_key');
+			$table->string('public_key')->unique();
+			$table->string('current_session_key')->unique();
 
 			// In case of legal uses
-			$table->string('ID_num');
-			$table->string('phone_number');
+			$table->string('ID_num')->unique();
+			$table->string('phone_number')->unique();
+
+			// For easy access -> this keeps getting altered periodically
+			// can be used to know the amount of money -> max that can be withdrawn
+			// FIXME could be unnecessary
+			$table->unsignedInteger('amount_total_nis');
 
 			$table->timestamps();
 		});

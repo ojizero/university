@@ -14,6 +14,11 @@ class CreateVehicleCustomerTransactionsTable extends Migration {
 	public function up () {
 		Schema::create('vehicle_customer_transactions', function (Blueprint $table) {
 			$table->increments('id');
+
+			$table->integer('customer_client_id');
+			$table->integer('vehicle_client_id');
+			$table->unsignedInteger('amount_nis');
+
 			$table->timestamps();
 		});
 	}

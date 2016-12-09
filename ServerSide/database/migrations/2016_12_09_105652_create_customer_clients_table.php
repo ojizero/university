@@ -16,9 +16,11 @@ class CreateCustomerClientsTable extends Migration {
 			$table->increments('id');
 
 			$table->string('secret_key')->unique();
-			$table->string('phone_number')->unique();
-
 			$table->unsignedInteger('credit')->default(0);
+
+			$table->string('customer_name');
+			$table->string('phone_number')->unique();
+			$table->string('ID_num')->unique();
 
 			$table->timestamps();
 		});
