@@ -8,3 +8,7 @@ ServerSide/.idea
 ServerSide/Homestead.json
 ServerSide/Homestead.yaml
 ServerSide/.env
+
+# Vi(m) specifics
+#*.sw*
+#*~
