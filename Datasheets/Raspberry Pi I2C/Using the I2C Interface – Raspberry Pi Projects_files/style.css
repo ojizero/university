@@ -1,0 +1,505 @@
+/*
+Theme Name:     KnowHow Child Theme
+Theme URI: 		http://herothemes.com/
+Description:    Child theme for KnowHow 
+Author: 		Chris Mooney (Swish Themes)
+Author URI: 	http://herothemes.com
+Template:       knowhow
+Version:        1.0.0
+*/
+
+@import url("../knowhow/style.css");
+
+@import url("site_specific_style.css");
+
+/* ------- Insert custom styles below this line ------- */
+
+/*---------------------------*/
+/*----- PAGE BACKGROUND -----*/
+/*---------------------------*/
+/*----- ADD THE TOP AND BOTTOM HORIZONTAL IMAGES -----*/
+body {
+	background-image: url(/images/background_header.png), url(/images/background_footer.png);
+	background-position: top left, bottom left;
+	background-repeat: repeat-x, repeat-x;
+	background-size: 1px 196px, 1px 108px;
+}
+
+/*------------------*/
+/*----- HEADER -----*/
+/*------------------*/
+
+/*----- HIDE THE DEFAULT KNOW HOW THEME HEADERS -----*/
+#site-header { display: none; }
+#primary-nav-mobile { display: none; }
+
+/*----- MY HEADER CONTAINER -----*/
+.my_header_wrapper {
+	max-width: 1040px;
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-left: auto;
+	padding: 0 10px;
+}
+
+/*----- TOP AREA -----*/
+.my_header_top {
+	height: 100px;
+}
+.my_header_logo {
+	float: left;
+	margin-top: 16px;
+	margin-left: 18px;
+	background: url(/images/header_logo.png) no-repeat;
+	background-size: 252px 68px;
+	width: 252px;
+	height: 68px;
+	border: none;
+}
+
+/*Contact details image pnly shown if screen is wide enough*/
+@media only screen and (max-width: 500px) {
+	.my_header_contact {
+	}
+}
+@media only screen and (min-width: 500px) {
+	.my_header_contact {
+		float: right;
+		margin-top: 16px;
+		margin-right: 12px;
+		background: url(/images/header_contact.png) no-repeat;
+		background-size: 184px 68px;
+		width: 184px;
+		height: 68px;
+		border: none;
+	}
+}
+
+
+/*-----------------------------*/
+/*----- HEADER - MENU BAR -----*/
+/*-----------------------------*/
+
+/*Menu bar background*/
+.my_header_menubar_wrapper {
+	height: 44px;
+	background-image: url(/images/header_menubar_left.png), url(/images/header_menubar_right.png);
+	background-position: top left, top right;
+	background-repeat: no-repeat, no-repeat;
+	background-size: 20px 44px, 21px 44px;
+	position: relative;
+	z-index: 10;			/*<<<<Must be more than the main image below otherwise drop down menu won't float over it*/
+}
+
+.my_header_menubar_wrapper:before {
+    content: '';
+    position: absolute;
+    z-index: -1;			/* push it to the background */
+    left: 20px;				/* Height of the left image */
+    top: 0;
+    right: 21px;			/* Height of the right image */
+    bottom: 0;
+    background: url(/images/header_menubar_middle.png) left top repeat-x;
+		background-size: 1px 44px;
+}
+
+
+
+.my_menu li a {
+	color: #FFF;
+	text-decoration: none;
+}
+.my_menu li a:visited {
+	color: #FFF;
+}
+.my_menu li a:hover {
+	color: #b864bf;
+	text-decoration: none;
+}
+
+
+/*----- RESPONSIVE MENU -----*/
+.nav_my_menu .my_menu_button a {
+	display: none;
+}
+@media only screen and (max-width: 870px) {
+	/*---------------------------------------------------------*/
+	/*----- SMALL SCREEN MENU CHANGES TO DROP DOWN BUTTON -----*/
+	/*---------------------------------------------------------*/
+	.nav_my_menu {
+		position: relative;
+		min-height: 40px;
+	}
+
+	.nav_my_menu li {
+		list-style: none;
+		display: inline-block;
+		height: 40px;
+	}
+	.nav_my_menu a {
+		text-decoration: none;
+		color: #999;
+	}
+	.nav_my_menu a:hover {
+		color: #000;
+	}
+	.nav_my_menu ul {
+
+		margin: 0;
+		background: url('/images/header_menubar_dropdown_button.png') no-repeat;
+		background-size: 33px 33px;
+		background-position: top 5px right 25px;
+		height: 44px;
+		width: 160px;		/*Set width of drop down*/
+		float: right;
+
+		padding-top: 5px;
+		padding-right: 20px;
+		padding-bottom: 5px;
+		padding-left: 0px;
+	}
+	.nav_my_menu li {
+		display: none;
+		margin: 0;
+		
+		font-family: Oswald;
+		font-size: 14px;
+		padding-top: 6px;
+		padding-right: 4px;
+		
+		/*Ensure its above other screen elements below the menu*/
+		position: relative;
+		z-index: 1000;
+	}
+	.nav_my_menu .my_menu_button {
+		display: block;
+	}
+	.nav_my_menu .my_menu_button a {
+		display: block;
+		background: none;
+		padding-right: 42px;		/*Clear the drop down icon */
+	}
+	.nav_my_menu a {
+		display: block;
+		text-align: right;		/*Set alignment*/
+	}
+
+	/* on nav hover */
+	.nav_my_menu ul:hover li.my_menu_item {
+		display: block;
+		background-color: #4dadd5;
+		margin: 0px;
+
+		border: solid 1px #26809b;		
+		border-radius: 5px;
+		box-shadow: 0 1px 2px rgba(0,0,0,.3);
+	}
+	.nav_my_menu.right ul {
+		left: auto;					/*Set alignment*/
+		right: 0;						/*Set alignment*/
+	}
+	
+	.my_menu_spacer {
+		display: none;
+	}
+
+}
+@media only screen and (min-width: 870px) {
+	.my_header_menubar_contents {
+		height: 44px;
+		margin-left: 30px;
+		margin-right: 20px;
+		overflow: hidden;
+	}
+	ul.my_menu {
+		list-style: none;
+		margin: 0px;
+		padding: 0px;
+	}
+	li.my_menu_spacer {
+		float: left;
+		width: 4px;
+		height: 44px;
+		background: url(/images/header_menubar_seperator.png) top 5px left 0px no-repeat;
+		background-size: 4px 35px;
+		margin-left: 16px;
+		margin-right: 16px;
+	}
+	.my_menu li {
+		float: left;
+		height: 44px;
+		font-family: Oswald;
+		font-size: 14px;
+		color: #FFF;
+		padding-top: 10px;
+		text-align:left;
+	}
+}
+@media only screen and (min-width: 980px) {
+	.my_header_menubar_contents {
+		height: 44px;
+		margin-left: 46px;
+		margin-right: 20px;
+		overflow: hidden;
+	}
+	ul.my_menu {
+		list-style: none;
+		margin: 0px;
+		padding: 0px;
+	}
+	li.my_menu_spacer {
+		float: left;
+		width: 4px;
+		height: 44px;
+		background: url(/images/header_menubar_seperator.png) top 5px left 0px no-repeat;
+		background-size: 4px 35px;
+		margin-left: 22px;
+		margin-right: 22px;
+	}
+	.my_menu li {
+		float: left;
+		height: 44px;
+		font-family: Oswald;
+		font-size: 14px;
+		color: #FFF;
+		padding-top: 10px;
+		text-align:left;
+	}
+}
+
+
+
+
+
+
+
+
+/*------------------------------------*/
+/*----- HEADER - MAIN PAGE IMAGE -----*/
+/*------------------------------------*/
+
+/*Main Image Background*/
+.my_header_main_image_wrapper {
+	height: 276px;
+	background-image: url(/images/header_image_left.png), url(/images/header_image_right.png);
+	background-position: top left, top right;
+	background-repeat: no-repeat, no-repeat;
+	background-size: 20px 276px, 21px 276px;
+	position: relative;
+	z-index: 2;
+	margin-bottom: 6px;
+}
+
+.my_header_main_image_wrapper:before {
+    content: '';
+    position: absolute;
+    z-index: -1;			/* push it to the background */
+    left: 20px;				/* Height of the left image */
+    top: 0;
+    right: 21px;			/* Height of the right image */
+    bottom: 0;
+    background: url(/images/header_image_middle.png) left top repeat-x;
+		background-size: 1px 276px;
+}
+
+/*----- THE MAIN IMAGE AND TEXT -----*/
+
+/*See site_specific_style.css*/
+
+
+
+/* Stop search box being too thin on mobile*/
+.container {
+padding: 0 10px;
+}
+
+
+
+
+/*-------------------*/
+/*----- SIDEBAR -----*/
+/*-------------------*/
+.my_sidebar_content_wrapper {
+}
+
+#primary.sidebar-right #sidebar {
+  padding-left: 18px;
+}
+#sidebar {
+	width: 261px;
+}
+/*Now also sort of the left content with the sidebar fixed width change*/
+#content {
+	/*Override % width set by theme*/
+  width: -moz-calc(100% - 261px);
+  width: -webkit-calc(100% - 261px);
+  width: calc(100% - 261px);
+}
+/*Reduce the top padding*/
+#sidebar {
+padding-top: 18px;
+}
+/*Reduce the padding under admin*/
+.widget {
+margin-bottom: 10px;
+}
+
+
+/*------------------*/
+/*----- FOOTER -----*/
+/*------------------*/
+/* Override KnowHow Theme footer*/
+#site-footer { display: none; }
+
+.my_footer_wrapper {
+	clear: both;
+	max-width: 1040px;
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-left: auto;
+	padding: 0 10px;
+	
+	height: 108px;
+	background-image: url(/images/footer_logo.png);
+	background-position: top right 10px;
+	background-repeat: no-repeat;
+	background-size: 110px 98px;
+}
+
+.my_footer_text {
+	height: 98px;
+	margin: 0px;
+	padding-top: 30px;
+	padding-right: 4px;
+	padding-left: 4px;
+	padding-bottom: 0px;
+	overflow: hidden;
+}
+
+
+.z_footer_text_links {
+	font-size: 12px;
+	line-height: 16px;
+	color: #FFFFFF;
+	margin: 0px;
+	text-align: left;
+	font-variant: normal;
+}
+.z_footer_text_links a {
+	text-decoration: none;
+	color: #FFFFFF;
+}
+.z_footer_text_links a:visited {
+	color: #FFFFFF;
+}
+.z_footer_text_links a:hover {
+	color: #9A4D9E;
+}
+.z_footer_text_notices {
+	font-size: 10px;
+	color: #FFFFFF;
+	margin: 0px;
+	text-align: left;
+}
+.z_footer_text_notices a {
+	color: #FFFFFF;
+	text-decoration: none;
+}
+.z_footer_text_notices a:visited {
+	color: #FFFFFF;
+}
+.z_footer_text_notices a:hover {
+	color: #FFFFFF;
+	text-decoration: underline;
+}
+
+
+/*----------------------*/
+/*----- USEFUL BOX -----*/
+/*----------------------*/
+.page_bottom_info_box_wrapper
+{
+	max-width: 680px;
+	margin-top: 6px;
+	margin-bottom: 6px;
+	margin-left: auto;
+	margin-right: auto;
+	border: 1px solid #666666;
+	padding: 4px;
+	color: #666666;
+}
+.page_bottom_info_box_title
+{
+	font-size: 12px;
+	line-height: 16px;
+	font-weight: bold;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.page_bottom_info_box_text
+{
+	font-size: 11px;
+	line-height: 15px;
+	font-weight: normal;
+	font-family: Arial, Helvetica, sans-serif;
+}
+/*Stop massive margin at bottom under box*/
+.single .post {
+	margin-bottom: 10px;
+}
+
+
+/*------------------*/
+/*----- DISQUS -----*/
+/*------------------*/
+.comments_heading {
+	font-size: 10px;
+	line-height: 13px;
+	color: #999;
+	border-top-width: 1px;
+	border-top-style: solid;
+	border-top-color: #CCC;
+	margin-bottom: 6px;
+	margin-top: 30px;
+}
+
+
+/*--------------------------------------------------------*/
+/*----- ALTER THEME DEFAULT FONT SIZES, SPACINGS ETC -----*/
+/*--------------------------------------------------------*/
+h4{font-size:1.3em;margin:1.33em 0} /*<<<Don't think this is relevant any more?*/
+
+.entry-content h4 {
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.entry-content h5 {
+	font-size: 16px;
+	line-height: 22px;
+	color: #4dadd5;
+}
+
+
+.wp-editor-container textarea.wp-editor-area {
+	height: 700px !important;
+}
+
+/* Make display of code segments right */
+code, pre {
+	font-size: 13px;
+	line-height: 13px;
+	word-break: normal;
+	word-wrap: normal;
+	white-space: pre;
+	overflow: auto;
+	overflow-y: hidden;
+	margin: 0px;
+	padding: 0px;
+	tab-size: 2;
+}
+.entry-content code, .entry-content pre {
+	margin: 0px;
+	padding-bottom: 6px;
+}
