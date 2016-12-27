@@ -12,4 +12,12 @@ class CustomerClient extends Model {
 	 * Contains the credit owned by each user
 	 * As well as other information regarding them
 	 **/
+
+	public function transactions () {
+		return $this->hasMany(VehicleCustomerTransaction::class);
+	}
+
+	public function deposits () {
+		return $this->hasMany(CustomerDeposit::class);
+	}
 }

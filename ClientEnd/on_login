@@ -1,0 +1,16 @@
+#! /bin/bash
+
+PATH_TO_CERTS=''
+PATH_TO_CREDS=''
+
+# Check for server call of maintenance
+# if maintenance mode exit
+
+# ELSE
+# Ping server, notify of login, pass parameters
+# OR use cURL (could have more options)
+wget localhost:8000/hey
+
+# Remove certificates and credintials
+rm -rf "$PATH_TO_CERTS"
+rm -rf "$PATH_TO_CREDS"

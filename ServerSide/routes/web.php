@@ -14,3 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/hey', function () {
+	return response()->json([
+		'A' => 'B',
+	], 200); 
+});
