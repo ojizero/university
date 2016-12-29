@@ -4,7 +4,6 @@ namespace App;
 
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Support\Facades\Auth;
 
 
 class VehicleClient extends Authenticatable {
