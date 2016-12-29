@@ -26,11 +26,9 @@ class CreateVehicleClientsTable extends Migration {
 			$table->string('ID_num')->unique();
 			$table->string('phone_number')->unique();
 
-			// For easy access -> this keeps getting altered periodically
-			// can be used to know the amount of money -> max that can be withdrawn
-			// FIXME could be unnecessary
 			$table->unsignedInteger('amount_total_nis');
 
+			$table->string('remember_token', 100)->nullable();
 			$table->timestamps();
 		});
 	}

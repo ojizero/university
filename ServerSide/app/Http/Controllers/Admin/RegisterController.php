@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Admin;
 
 use App\User;
 use Validator;
@@ -62,7 +62,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return VehicleClient::create([
+        return Admin::create([
             // 'name' => $data['name'],
             // 'email' => $data['email'],
             'password' => bcrypt($data['password']),

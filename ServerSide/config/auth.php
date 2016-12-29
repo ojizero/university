@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'web',
-        'passwords' => 'users',
+        'passwords' => 'vehicle_clients',
     ],
 
     /*
@@ -38,7 +38,12 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'vehicle_clients',
+        ],
+
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
         ],
 
         'api' => [
@@ -65,10 +70,17 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        // Auth provider model for vehicles
+        'vehicle_clients' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
+            'model' => App\VehicleClient::class,
         ],
+        // Auth provider model for admins
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Admin::class,
+        ],
+
 
         // 'users' => [
         //     'driver' => 'database',
@@ -92,8 +104,13 @@ return [
     */
 
     'passwords' => [
-        'users' => [
-            'provider' => 'users',
+        'vehicle_clients' => [
+            'provider' => 'vehicle_clients',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+        'admins' => [
+            'provider' => 'admins',
             'table' => 'password_resets',
             'expire' => 60,
         ],

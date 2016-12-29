@@ -21,6 +21,7 @@ Route::get('/hey', function () {
 	], 200);
 });
 
+Auth::routes();
 
 Route::get('/transfer/{from}/{to}/{amount}', [
 	'uses' => 'TransactionsController@transaction_request', // this is the controller's name followed by the function within the controller

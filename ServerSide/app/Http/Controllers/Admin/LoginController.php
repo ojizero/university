@@ -1,11 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Support\Facades\Auth;
-use Auth;
 
 class LoginController extends Controller
 {
@@ -46,14 +44,9 @@ class LoginController extends Controller
      */
     public function authenticate()
     {
-        if (Auth::attempt(['premit' => $permit, 'password' => $password, 'valid' => true])) {
+        if (Auth::attempt(['id' => $id, 'password' => $password])) {
             // Authentication passed...
-            return response()->json(true, 200);
+            return redirect()->intended('dashboard');
         }
-    }
-
-    protected function guard()
-    {
-        return Auth::guard('admin');
     }
 }
