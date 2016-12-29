@@ -3,14 +3,39 @@
 namespace App\Http\Controllers;
 
 
-use Illuminate\Http\Request;
+use App\CustomerClient;
 
 
 class CustomerController extends Controller {
-	public static function withdraw_money ($from, $amount) {
+	public static function deposit_money ($id, $amount) {
+
 	}
 
-	public function money_deposit (Request $request) {
+	public function admin_deposit_money ($id, $amount) {
+
+	}
+
+	public static function withdraw_money ($id, $amount) {
+		$customer = CustomerClient::find($id);
+		if ($id) {
+			$customer->credit = $customer->credit - $amount;
+			$customer->update();
+
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function admin_withdraw_money ($id, $amount) {
+
+	}
+
+	public static function get_credit ($id) {
+
+	}
+
+	public function admin_get_credit ($id) {
 
 	}
 

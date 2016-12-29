@@ -20,6 +20,7 @@ class CreateVehicleClientsTable extends Migration {
 			$table->string('password');
 			$table->string('public_key')->unique();
 			$table->string('current_session_key')->unique();
+			$table->boolean('valid');
 
 			// In case of legal uses
 			$table->string('ID_num')->unique();
