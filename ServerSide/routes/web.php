@@ -19,7 +19,13 @@ Route::get('/login-hey', function () {
 	return response()->json([
 		'User' => 'Logged',
 	], 200);
-})->middleware('auth');
+})->middleware('auth:web');
+
+Route::get('/admin-hey', function () {
+	return response()->json([
+		'User' => 'Admin !',
+	], 200);
+})->middleware('auth:admin');
 
 Route::get('/transfer/{from}/{to}/{amount}', [
 	'uses' => 'TransactionsController@transaction_request', // this is the controller's name followed by the function within the controller
