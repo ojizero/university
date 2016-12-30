@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Admin;
 
 
+use App\Admin;
 use App\Http\Controllers\Controller;
-use App\VehicleClient;
+use Auth;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Validator;
 
 
 class RegisterController extends Controller {
@@ -28,7 +29,7 @@ class RegisterController extends Controller {
 	 *
 	 * @var string
 	 */
-	protected $redirectTo = '/home';
+	protected $redirectTo = '/admin_home';
 
 	/**
 	 * Create a new controller instance.
@@ -47,10 +48,7 @@ class RegisterController extends Controller {
 	 */
 	protected function validator (array $data) {
 		return Validator::make($data, [
-			'permit'       => 'unique:vehicle_clients', // TODO validate with max and min as the allowed length for permits
-			'ID_num'       => 'unique:vehicle_clients', // TODO validate to only accept ID numbers
-			'phone_number' => 'unique:vehicle_clients', // TODO validate to only accept valid phone numbers
-			'password'     => 'required|min:8|confirmed',
+			'password' => 'required|min:8|confirmed',
 		]);
 	}
 
@@ -58,15 +56,15 @@ class RegisterController extends Controller {
 	 * Create a new user instance after a valid registration.
 	 *
 	 * @param  array $data
-	 * @return VehicleClient
+	 * @return Admin
 	 */
 	protected function create (array $data) {
-		return VehicleClient::create([
-			'permit'       => $data['permit'],
-			'ID_num'       => $data['idnum'],
-			'phone_number' => $data['phone'],
-			'password'     => bcrypt($data['password']),
-			'valid'        => true,
+		return Admin::create([
+			'password' => bcrypt($data['password']),
 		]);
+	}
+
+	protected function guard () {
+		return Auth::guard('admin');
 	}
 }
