@@ -6,7 +6,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\VehicleClient;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Support\Facades\Validator;
 
 
 class RegisterController extends Controller {
@@ -47,9 +47,10 @@ class RegisterController extends Controller {
 	 */
 	protected function validator (array $data) {
 		return Validator::make($data, [
-			// 'name' => 'required|max:255',
-			// 'email' => 'required|email|max:255|unique:users',
-			'password' => 'required|min:8|confirmed',
+			'permit'       => 'unique:vehicle_clients', // TODO validate with max and min as the allowed length for permits
+			'ID_num'       => 'unique:vehicle_clients', // TODO validate to only accept ID numbers
+			'phone_number' => 'unique:vehicle_clients', // TODO validate to only accept valid phone numbers
+			'password'     => 'required|min:8|confirmed',
 		]);
 	}
 
@@ -57,13 +58,15 @@ class RegisterController extends Controller {
 	 * Create a new user instance after a valid registration.
 	 *
 	 * @param  array $data
-	 * @return User
+	 * @return VehicleClient
 	 */
 	protected function create (array $data) {
 		return VehicleClient::create([
-			// 'name' => $data['name'],
-			// 'email' => $data['email'],
-			'password' => bcrypt($data['password']),
+			'permit'       => $data['permit'],
+			'ID_num'       => $data['idnum'],
+			'phone_number' => $data['phone'],
+			'password'     => bcrypt($data['password']),
+			'valid'        => true,
 		]);
 	}
 }

@@ -21,8 +21,6 @@ Route::get('/hey', function () {
 	], 200);
 });
 
-Auth::routes();
-
 Route::get('/transfer/{from}/{to}/{amount}', [
 	'uses' => 'TransactionsController@transaction_request', // this is the controller's name followed by the function within the controller
 	'as'   => 'make_transaction'  // this is the name of the route, it can be used to be references by HTML pages anywhere
@@ -82,3 +80,10 @@ Route::get('/query/customer/deposit/{id}/{amount}', [
 	'uses' => 'CustomerController@admin_deposit_money',
 	'as'   => 'customer_deposit_credit'
 ]);
+
+
+// Scaffolding made by `php artisan make:auth`
+// temporary and probably to be removed
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');

@@ -7,6 +7,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 
 class VehicleClient extends Authenticatable {
+
+	protected $fillable = [
+		'permit', 'ID_num', 'phone_number', 'password', 'valid'
+	];
 	/**
 	 * The attributes that should be hidden for arrays.
 	 *

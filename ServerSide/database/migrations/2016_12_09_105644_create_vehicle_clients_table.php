@@ -18,15 +18,14 @@ class CreateVehicleClientsTable extends Migration {
 			// Credentials
 			$table->string('permit')->unique();
 			$table->string('password');
-			$table->string('public_key')->unique();
-			$table->string('current_session_key')->unique();
 			$table->boolean('valid');
+//			$table->string('public_key')->unique()->nullable();
 
 			// In case of legal uses
 			$table->string('ID_num')->unique();
 			$table->string('phone_number')->unique();
 
-			$table->unsignedInteger('amount_total_nis');
+			$table->unsignedInteger('amount_total_nis')->default(0);
 
 			$table->string('remember_token', 100)->nullable();
 			$table->timestamps();

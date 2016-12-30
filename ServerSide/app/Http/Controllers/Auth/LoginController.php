@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 
 class LoginController extends Controller {
@@ -39,18 +40,12 @@ class LoginController extends Controller {
 	}
 
 	/**
-	 * Handle an authentication attempt.
+	 * Get the login username to be used by the controller.
 	 *
-	 * @return Response
+	 * @return string
 	 */
-	public function authenticate () {
-		if (Auth::attempt(['premit' => $permit, 'password' => $password, 'valid' => true])) {
-			// Authentication passed...
-			return response()->json(true, 200);
-		}
-	}
-
-	protected function guard () {
-		return Auth::guard('admin');
+	public function username()
+	{
+		return 'permit';
 	}
 }
