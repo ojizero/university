@@ -15,11 +15,11 @@ Route::get('/', function () {
 	return view('welcome');
 });
 
-Route::get('/hey', function () {
+Route::get('/login-hey', function () {
 	return response()->json([
-		'A' => 'B',
+		'User' => 'Logged',
 	], 200);
-});
+})->middleware('auth');
 
 Route::get('/transfer/{from}/{to}/{amount}', [
 	'uses' => 'TransactionsController@transaction_request', // this is the controller's name followed by the function within the controller
@@ -82,8 +82,24 @@ Route::get('/query/customer/deposit/{id}/{amount}', [
 ]);
 
 
-// Scaffolding made by `php artisan make:auth`
+//--------------------------------------
+//--------------------------------------
 // temporary and probably to be removed
-Auth::routes();
+//--------------------------------------
 
-Route::get('/home', 'HomeController@index');
+// Scaffolding made by `php artisan make:auth`
+Auth::routes();
+Route::get('/home', 'HomeController@index'); ## the default guard of the auth middleware
+
+// Scaffolding made by me
+Route::get('admin_login', 'Admin\LoginController@showLoginForm');
+Route::post('admin_login', 'Admin\LoginController@login');
+Route::post('admin_logout', 'Admin\LoginController@logout');
+//Route::post('admin_password/email', 'Admin\ForgotPasswordController@sendResetLinkEmail');
+//Route::post('admin_password/reset', 'Admin\ResetPasswordController@reset');
+//Route::get('admin_password/reset', 'Admin\ForgotPasswordController@showLinkRequestForm');
+//Route::get('admin_password/reset/{token}', 'Admin\ResetPasswordController@showResetForm');
+//Route::get('admin_register', 'Admin\RegisterController@showRegistrationForm');
+//Route::post('admin_register', 'Admin\RegisterController@register');
+
+Route::get('/admin_home', 'AdminHomeController@index');

@@ -53,4 +53,13 @@ class LoginController extends Controller {
 	protected function guard () {
 		return Auth::guard('admin');
 	}
+
+	/**
+	 * Show the application's login form.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function showLoginForm () {
+		return view('admin.login');
+	}
 }
