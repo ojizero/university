@@ -27,10 +27,11 @@ Route::get('/admin-hey', function () {
 	], 200);
 })->middleware('auth:admin');
 
+
 Route::get('/transfer/{from}/{to}/{amount}', [
 	'uses' => 'TransactionsController@transaction_request', // this is the controller's name followed by the function within the controller
 	'as'   => 'make_transaction'  // this is the name of the route, it can be used to be references by HTML pages anywhere
-]);
+])->middleware('auth:web');
 
 /*
 |--------------------------------------------------------------------------
@@ -43,7 +44,7 @@ Route::get('/transfer/{from}/{to}/{amount}', [
 Route::get('/kill/{id}', [
 	'uses' => 'VehicleController@invalidate',
 	'as'   => 'invalidate_id'
-]);
+])->middleware('auth:web');
 
 /*
 |--------------------------------------------------------------------------
@@ -54,17 +55,17 @@ Route::get('/kill/{id}', [
 |
 */
 Route::get('/query/vehicle/credit/{id}', [
-	'uses' => 'VehicleController@admin_get_credit',
+	'uses' => 'VehicleController@get_credit',
 	'as'   => 'vehicle_get_credit'
-]);
+])->middleware('auth:admin');
 Route::get('/query/vehicle/withdraw/{id}/{amount}', [
-	'uses' => 'VehicleController@admin_withdraw_money',
+	'uses' => 'VehicleController@withdraw_money',
 	'as'   => 'vehicle_withdraw_credit'
-]);
+])->middleware('auth:admin');
 Route::get('/query/vehicle/deposit/{id}/{amount}', [
-	'uses' => 'VehicleController@admin_deposit_money',
+	'uses' => 'VehicleController@deposit_money',
 	'as'   => 'vehicle_deposit_credit'
-]);
+])->middleware('auth:admin');
 
 /*
 |--------------------------------------------------------------------------
@@ -75,17 +76,17 @@ Route::get('/query/vehicle/deposit/{id}/{amount}', [
 |
 */
 Route::get('/query/customer/credit/{id}', [
-	'uses' => 'CustomerController@admin_get_credit',
+	'uses' => 'CustomerController@get_credit',
 	'as'   => 'customer_get_credit'
-]);
+])->middleware('auth:admin');
 Route::get('/query/customer/withdraw/{id}/{amount}', [
-	'uses' => 'CustomerController@admin_withdraw_money',
+	'uses' => 'CustomerController@withdraw_money',
 	'as'   => 'customer_withdraw_credit'
-]);
+])->middleware('auth:admin');
 Route::get('/query/customer/deposit/{id}/{amount}', [
-	'uses' => 'CustomerController@admin_deposit_money',
+	'uses' => 'CustomerController@deposit_money',
 	'as'   => 'customer_deposit_credit'
-]);
+])->middleware('auth:admin');
 
 
 //--------------------------------------

@@ -11,10 +11,6 @@ class CustomerController extends Controller {
 
 	}
 
-	public function admin_deposit_money ($id, $amount) {
-
-	}
-
 	public static function withdraw_money ($id, $amount) {
 		$customer = CustomerClient::find($id);
 		if ($id) {
@@ -27,15 +23,7 @@ class CustomerController extends Controller {
 		}
 	}
 
-	public function admin_withdraw_money ($id, $amount) {
-
-	}
-
 	public static function get_credit ($id) {
-
-	}
-
-	public function admin_get_credit ($id) {
 
 	}
 
