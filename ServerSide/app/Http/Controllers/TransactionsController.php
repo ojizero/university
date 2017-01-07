@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 
 use App\CustomerClient;
-use App\VehicleClient;
 use App\VehicleCustomerTransaction;
 
 
@@ -21,12 +20,8 @@ class TransactionsController extends Controller {
 	*/
 	public function transaction_request ($from, $to, $amount) {
 		if (VehicleController::validate_authorization($to)) { // if authorized
-			// get customer with ID $from
 			$customer = CustomerClient::find($from);
-			$vehicle  = VehicleClient::find($to);
-			// do the validation part
-			// customer exists, amount is positive, customer has credit, vehicle exists
-			if ((($amount > 0) && $customer && ($customer->credit >= $amount)) && $vehicle && $vehicle->valid) {
+			if ((($amount > 0) && $customer && ($customer->credit >= $amount))) {
 				// create new transaction object
 				$transaction                     = new VehicleCustomerTransaction();
 				$transaction->amount_nis         = $amount;
@@ -40,12 +35,13 @@ class TransactionsController extends Controller {
 				$transaction->save();
 
 				return response()->json(True, 200);
-			} else {
-				// return null on fail
-				return response()->json(Null, 200);
 			}
-		} else {
-
 		}
+
+		return response()->json(Null, 200);
+	}
+
+	public function index () {
+		return response()->json(VehicleCustomerTransaction::all());
 	}
 }

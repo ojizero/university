@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\VehicleClient;
+use Illuminate\Support\Facades\Auth;
 
 
 class VehicleController extends Controller {
@@ -20,15 +21,28 @@ class VehicleController extends Controller {
 	}
 
 	public static function withdraw_money ($id, $amount) {
+		$vehicle = VehicleClient::find($id);
+		if ($vehicle && $vehicle->amount_total_nis > $amount) {
+			$vehicle->amount_total_nis = $vehicle->amount_total_nis - $amount;
+			$vehicle->update();
 
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public static function get_credit ($id) {
+		$vehicle = VehicleClient::find($id);
+		if ($vehicle) {
+			return response()->json($vehicle->amount_total_nis);
+		}
 
+		return response()->json(Null);
 	}
 
 	public static function validate_authorization ($id) {
-		return true;
+		return (Auth::guard('web')->user()->id == $id) && VehicleClient::find($id)->valid;
 	}
 
 	/*

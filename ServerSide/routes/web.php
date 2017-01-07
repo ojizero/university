@@ -27,11 +27,20 @@ Route::get('/admin-hey', function () {
 	], 200);
 })->middleware('auth:admin');
 
+/*
+|--------------------------------------------------------------------------
+| Regarding transactions
+|--------------------------------------------------------------------------
+|
+*/
+Route::get('/transactions/index', 'TransactionsController@index')->middleware('auth:admin');
 
 Route::get('/transfer/{from}/{to}/{amount}', [
 	'uses' => 'TransactionsController@transaction_request', // this is the controller's name followed by the function within the controller
 	'as'   => 'make_transaction'  // this is the name of the route, it can be used to be references by HTML pages anywhere
 ])->middleware('auth:web');
+
+//Route::get('/yo', 'VehicleController@validate_authorization');
 
 /*
 |--------------------------------------------------------------------------
@@ -87,6 +96,7 @@ Route::get('/query/customer/deposit/{id}/{amount}', [
 	'uses' => 'CustomerController@deposit_money',
 	'as'   => 'customer_deposit_credit'
 ])->middleware('auth:admin');
+
 
 
 //--------------------------------------
