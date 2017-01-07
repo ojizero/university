@@ -98,7 +98,6 @@ Route::get('/query/customer/deposit/{id}/{amount}', [
 ])->middleware('auth:admin');
 
 
-
 //--------------------------------------
 //--------------------------------------
 // temporary and probably to be removed

@@ -12,11 +12,12 @@ class CreateVehicleWithdrawalsTable extends Migration {
 	 * @return void
 	 */
 	public function up () {
+		// ignore the name for now
 		Schema::create('vehicle_withdrawals', function (Blueprint $table) {
 			$table->increments('id');
 
 			$table->integer('vehicle_client_id');
-			$table->unsignedInteger('withdrawn_amount_nis');
+			$table->double('withdrawn_amount_nis');
 
 			$table->timestamps();
 		});

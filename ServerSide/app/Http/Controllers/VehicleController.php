@@ -14,10 +14,14 @@ class VehicleController extends Controller {
 			$vehicle->amount_total_nis = $vehicle->amount_total_nis + $amount;
 			$vehicle->update();
 
-			return true;
-		} else {
-			return false;
+//			VehicleWithdrawal::create([
+//
+//			]);
+
+			return response()->json(True);
 		}
+
+		return response()->json(False);
 	}
 
 	public static function withdraw_money ($id, $amount) {
@@ -26,10 +30,10 @@ class VehicleController extends Controller {
 			$vehicle->amount_total_nis = $vehicle->amount_total_nis - $amount;
 			$vehicle->update();
 
-			return true;
-		} else {
-			return false;
+			return response()->json(True);
 		}
+
+		return response()->json(False);
 	}
 
 	public static function get_credit ($id) {

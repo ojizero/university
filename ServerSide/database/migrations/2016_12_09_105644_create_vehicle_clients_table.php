@@ -25,7 +25,7 @@ class CreateVehicleClientsTable extends Migration {
 			$table->string('ID_num')->unique();
 			$table->string('phone_number')->unique();
 
-			$table->unsignedInteger('amount_total_nis')->default(0);
+			$table->double('amount_total_nis')->default(0.0);
 
 			$table->string('remember_token', 100)->nullable();
 			$table->timestamps();

@@ -16,7 +16,7 @@ class CreateCustomerDepositsTable extends Migration {
 			$table->increments('id');
 
 			$table->integer('customer_client_id');
-			$table->unsignedInteger('deposited_amount_nis');
+			$table->double('deposited_amount_nis');
 
 //			$table->integer('method_id'); // suggested
 

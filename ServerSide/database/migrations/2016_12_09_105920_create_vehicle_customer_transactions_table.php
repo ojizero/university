@@ -17,7 +17,7 @@ class CreateVehicleCustomerTransactionsTable extends Migration {
 
 			$table->integer('customer_client_id');
 			$table->integer('vehicle_client_id');
-			$table->unsignedInteger('amount_nis');
+			$table->double('amount_nis');
 
 			$table->timestamps();
 		});

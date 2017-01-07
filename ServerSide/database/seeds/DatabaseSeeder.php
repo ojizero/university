@@ -2,15 +2,16 @@
 
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
-{
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
-    {
-        $this->call(AdminsTableSeeder::class);
-    }
+
+class DatabaseSeeder extends Seeder {
+	/**
+	 * Run the database seeds.
+	 *
+	 * @return void
+	 */
+	public function run () {
+		$this->call(AdminsTableSeeder::class);
+		$this->call(CustomersTableSeeder::class);
+		$this->call(VehicleTableSeeder::class);
+	}
 }
