@@ -50,7 +50,7 @@ Route::get('/transfer/{from}/{to}/{amount}', [
 | Invalidates vehicle in case of malicious suspicion
 |
 */
-Route::get('/kill/{id}', [
+Route::get('/kill', [
 	'uses' => 'VehicleController@invalidate',
 	'as'   => 'invalidate_id'
 ])->middleware('auth:web');

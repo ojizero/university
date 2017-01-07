@@ -58,11 +58,16 @@ class VehicleController extends Controller {
 	| and stop recognizing vehicle
 	|
 	*/
-	public function invalidate ($id) {
-		if (VehicleController::validate_authorization($id)) {
-			$vehicle        = VehicleClient::find($id);
+	public function invalidate () {
+		$logged_in = Auth::guard('web')->user();
+		if ($logged_in) {
+			$vehicle        = VehicleClient::find($logged_in->id);
 			$vehicle->valid = false;
 			$vehicle->update();
+
+			return response()->json('dead');
 		}
+
+		return response()->json('alive');
 	}
 }
