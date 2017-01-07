@@ -1,16 +1,34 @@
+import re
+import sys
+import json
 import requests
 
-URL = 'http://localhost:8000/'
+information = None
+with open(sys.argv[1], 'r') as info:
+	information = json.loads(info.read())
 
+if not information:
+	exit(-1)
+
+URL = information['URL']
 client = requests.session()
 
 # Retrieve the CSRF token first
-client.get(URL + 'login')  # sets cookie
-csrftoken = client.cookies['XSRF-TOKEN']
+get = client.get(URL + '/login')  # sets cookie
 
-login_data = dict(permit='123456', password='12345678', csrfmiddlewaretoken=csrftoken, next='/')
-r = client.post(URL, data=login_data, headers=dict(Referer=(URL)))
+login_data = {
+	'permit'	: information['permit'],
+	'password'	: information['password'],
+	'_token'	: re.compile('\"_token\".*value=\"(?P<Value>\w*)\"\>')
+					.search(get.text).group('Value') # get the token from text
+}
 
-res = client.get(URL + 'kill')
+# send kill signal to server
+client.post(URL+'/login', data=login_data, cookies=client.cookies)
 
-print(res)
+status = json.loads(client.get(URL+'/maintenance', cookies=client.cookies).text)
+# print(type(status['status']))
+if status['status']:
+	print('true')
+else:
+	client.get(URL + '/kill')
