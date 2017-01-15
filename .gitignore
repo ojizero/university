@@ -4,7 +4,6 @@
 ServerSide/node_modules
 ServerSide/public/storage
 ServerSide/vendor
-ServerSide/.idea
 ServerSide/Homestead.json
 ServerSide/Homestead.yaml
 ServerSide/.env
@@ -12,3 +11,6 @@ ServerSide/.env
 # Vi(m) specifics
 *.sw*
 #*~
+
+# JetBrainz
+.idea

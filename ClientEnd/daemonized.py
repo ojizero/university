@@ -1,8 +1,11 @@
-import sys
-import RPi.GPIO as gpio
-from config import params
+from daemon import Daemon
 
 
-while True:
+class TheDaemon(Daemon):
+	def run(self):
+		""" TheLoop """
+		pass
 
+
+if __name__ == '__main__':
 	pass

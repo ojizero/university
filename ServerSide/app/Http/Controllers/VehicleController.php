@@ -70,4 +70,15 @@ class VehicleController extends Controller {
 
 		return response()->json('alive');
 	}
+
+	public function maintenance_status () {
+		$logged_in = Auth::guard('web')->user();
+		if ($logged_in) {
+			return response()->json([
+				'status' => $logged_in->maintenance
+			]);
+		}
+
+		return response()->json(Null);
+	}
 }
