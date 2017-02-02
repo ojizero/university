@@ -15,5 +15,8 @@ ServerSide/.env
 # JetBrainz
 .idea
 
+# MAC stuff
+.DS_Store
+
 # Stdout
 daemonout
