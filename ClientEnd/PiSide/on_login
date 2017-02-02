@@ -1,0 +1,15 @@
+#! /bin/bash
+
+PATH_TO_CREDS='/home/oji/Workspace/Git/InterfaceProject/ClientEnd/creds' #'/etc/.creds' # generify make a config file
+
+# Check for server call of maintenance
+# if maintenance mode exit
+status=$(python invalidate.py $PATH_TO_CREDS)
+if [[ $status ]]; then
+	# under maintenance
+	echo 'maintenance';
+else
+	# assume attack
+	# remove all information
+	rm -rf "$PATH_TO_CREDS"
+fi
