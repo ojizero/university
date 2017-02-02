@@ -12,3 +12,6 @@ ServerSide/.env
 # Vi(m) specifics
 *.sw*
 #*~
+
+# MAC stuff
+.DA_Store
