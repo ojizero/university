@@ -75,7 +75,7 @@ class VehicleController extends Controller {
 		$logged_in = Auth::guard('web')->user();
 		if ($logged_in) {
 			return response()->json([
-				'status' => $logged_in->maintenance
+				'status' => ($logged_in->maintenance == 1)
 			]);
 		}
 

@@ -43,13 +43,13 @@ class TransactionsController extends Controller {
 
 			return response()->json([
 				'_status'      => 403,
-				'_description' => ($customer) ? ('insufficient credit') : ('invalid card')
+				'_description' => ($customer) ? ('not enough cash') : ('invalid card')
 			]);
 		}
 
 		return response()->json([
 			'_status'      => 403,
-			'_description' => 'invalid vehicle'
+			'_description' => 'compromised car'
 		]);
 	}
 
