@@ -8,22 +8,30 @@ An Automated Payment System for Public Transport
 
 # Project Sections
 ## ServerSide
-A PHP/Laravel application to handle the server side requests made by the system.
-Is a simple RESTful service that handles:
-* Authentication
-* Validation
-* Transactions
-* Database management
+A PHP/Laravel RESTful application to handle the server side requests made by the system.
 
-## ArduinoClient
-The Arduino code, represents the client side of the system.
-Handles:
-* Creating an encrypted secure tunnel with the server side.
-* Sending credintials to authenticate with the server.
-* Sending transactional requests in a REST format using HTTP requests, mainly `HTTP/GET`.
+## ClientEnd
+The Arduino and Pi codes, represents the client side of the system.
 
-## Schemas
-The schemes of the system, how the physical modules connect to each other. *__Hardware side__*
+## License
+This work is licensed under MIT's license, it is open for any to use, hack, modify, or generally whatever.
 
-## Datasheets
-The datasheets of the components used, like ... duh.
+It happens to also be beerware ;) , if we ever meet some day, and you think this stuff is worth it, or it helped you in any form, you can buy us a round in return.
+
+```
+  _
+ {_}
+ |(|
+ |=|
+/   \
+|.--|
+||  |
+||  |    .    ' .
+|'--|  '     \~~~/     //
+'-=-' \~~~/   \_/     //
+       \_/     Y     //
+        Y     _|_   //
+jgs    _|_         //
+==================
+cheers ^_^
+```
