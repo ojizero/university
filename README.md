@@ -14,7 +14,7 @@ A PHP/Laravel RESTful application to handle the server side requests made by the
 The Arduino and Pi codes, represents the client side of the system.
 
 ## License
-This work is licensed under MIT's license, it is open for any to use, hack, modify, or generally whatever.
+This work is licensed under MIT's license, it is open for any to use, hack, modification, or generally whatever.
 
 It happens to also be beerware ;) , if we ever meet some day, and you think this stuff is worth it, or it helped you in any form, you can buy us a round in return.
 
