@@ -123,3 +123,8 @@ Route::post('admin_logout', 'Admin\LoginController@logout');
 //Route::post('admin_register', 'Admin\RegisterController@register')->middleware('auth:admin');
 
 Route::get('/admin_home', 'AdminHomeController@index');
+
+
+Route::get('/test/{uid}', function ($uid) {
+	return response()->json(\App\CustomerClient::findOrFail($uid));
+});

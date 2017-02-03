@@ -13,10 +13,10 @@ class CreateVehicleClientsTable extends Migration {
 	 */
 	public function up () {
 		Schema::create('vehicle_clients', function (Blueprint $table) {
-			$table->increments('id');
+//			$table->increments('id');
 
 			// Credentials
-			$table->string('permit')->unique();
+			$table->string('id')->unique(); // had hu el permit
 			$table->string('password');
 			$table->boolean('valid');
 //			$table->string('public_key')->unique()->nullable();

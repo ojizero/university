@@ -47,7 +47,7 @@ class LoginController extends Controller {
 	 * @return string
 	 */
 	public function username () {
-		return 'permit';
+		return 'id';
 	}
 
 	public function get_logout () {
