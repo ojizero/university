@@ -28,6 +28,7 @@ class TheDaemon(Daemon):
 
 		payment_count = 0
 		lcd_str       = 'Paid:%d. Rem:%d\n%s.'
+		lcd.message(lcd_str%(payment_count, params['_mas_passengers'] - payment_count, '....'))
 
 		reader = Serial(port=params['_port'])
 		""" TheLoop """
