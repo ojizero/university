@@ -12,14 +12,14 @@ class CustomersTableSeeder extends Seeder {
 	 */
 	public function run () {
 		CustomerClient::create([
-			'secret_key'    => Hash::make('weam'),
+			'id'          => '022AB2C5',
 			'ID_num'        => '651423',
 			'phone_number'  => '56203',
 			'customer_name' => 'Weam Mikkawi'
 		]);
 
 		CustomerClient::create([
-			'secret_key'    => Hash::make('majdi'),
+			'id'          => '321A4B2B',
 			'ID_num'        => '535533',
 			'phone_number'  => '455645',
 			'customer_name' => 'Majdi Lada'

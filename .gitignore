@@ -4,7 +4,6 @@
 ServerSide/node_modules
 ServerSide/public/storage
 ServerSide/vendor
-ServerSide/.idea
 ServerSide/Homestead.json
 ServerSide/Homestead.yaml
 ServerSide/.env
@@ -13,5 +12,11 @@ ServerSide/.env
 *.sw*
 #*~
 
+# JetBrainz
+.idea
+
 # MAC stuff
-.DA_Store
+.DS_Store
+
+# Stdout
+daemonout

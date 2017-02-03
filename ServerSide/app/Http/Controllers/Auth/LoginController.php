@@ -35,7 +35,10 @@ class LoginController extends Controller {
 	 * @return void
 	 */
 	public function __construct () {
-		$this->middleware('guest', ['except' => 'logout']);
+		$this->middleware('guest', ['except' => [
+			'logout',
+			'get_logout'
+		]]);
 	}
 
 	/**
@@ -44,6 +47,13 @@ class LoginController extends Controller {
 	 * @return string
 	 */
 	public function username () {
-		return 'permit';
+		return 'id';
+	}
+
+	public function get_logout () {
+		Auth::logout();
+
+//		return response()->json(Auth::user());
+		return redirect('/');
 	}
 }

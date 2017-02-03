@@ -21,6 +21,7 @@ class TransactionsController extends Controller {
 	public function transaction_request ($from, $to, $amount) {
 		if (VehicleController::validate_authorization($to)) { // if authorized
 			$customer = CustomerClient::find($from);
+//			dd($customer->credit);
 			if ((($amount > 0) && $customer && ($customer->credit >= $amount))) {
 				// create new transaction object
 				$transaction                     = new VehicleCustomerTransaction();
@@ -34,11 +35,22 @@ class TransactionsController extends Controller {
 				// save the transaction
 				$transaction->save();
 
-				return response()->json(True, 200);
+				return response()->json([
+					'_status'      => 200,
+					'_description' => 'success'
+				]);
 			}
+
+			return response()->json([
+				'_status'      => 403,
+				'_description' => ($customer) ? ('not enough cash') : ('invalid card')
+			]);
 		}
 
-		return response()->json(Null, 200);
+		return response()->json([
+			'_status'      => 403,
+			'_description' => 'compromised car'
+		]);
 	}
 
 	public function index () {

@@ -13,7 +13,7 @@ class VehicleTableSeeder extends Seeder {
 	public function run () {
 		VehicleClient::create([
 			'permit'       => '123456',
-			'password'     => '12345678',
+			'password'     => Hash::make('12345678'),
 			'valid'        => true,
 			'ID_num'       => '1532',
 			'phone_number' => '56256'

@@ -10,15 +10,15 @@
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                         {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('permit') ? ' has-error' : '' }}">
-                            <label for="permit" class="col-md-4 control-label">Permit</label>
+                        <div class="form-group{{ $errors->has('id') ? ' has-error' : '' }}">
+                            <label for="id" class="col-md-4 control-label">Permit</label>
 
                             <div class="col-md-6">
-                                <input id="permit" type="permit" class="form-control" name="permit" value="{{ old('permit') }}" required autofocus>
+                                <input id="id" type="id" class="form-control" name="id" value="{{ old('id') }}" required autofocus>
 
-                                @if ($errors->has('permit'))
+                                @if ($errors->has('id'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('premit') }}</strong>
+                                        <strong>{{ $errors->first('id') }}</strong>
                                     </span>
                                 @endif
                             </div>

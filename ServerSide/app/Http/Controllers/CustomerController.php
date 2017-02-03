@@ -7,8 +7,8 @@ use App\CustomerClient;
 
 
 class CustomerController extends Controller {
-	public static function deposit_money ($id, $amount) {
-		$customer = CustomerClient::find($id);
+	public static function deposit_money ($uid, $amount) {
+		$customer = CustomerClient::find($uid);
 		if ($customer) {
 			$customer->credit = $customer->credit + $amount;
 			$customer->update();
@@ -19,9 +19,9 @@ class CustomerController extends Controller {
 		return response()->json(False);
 	}
 
-	public static function withdraw_money ($id, $amount) {
-		$customer = CustomerClient::find($id);
-		if ($customer && $customer->credit > $amount) {
+	public static function withdraw_money ($uid, $amount) {
+		$customer = CustomerClient::find($uid);
+		if ($customer && $customer->credit >= $amount) {
 			$customer->credit = $customer->credit - $amount;
 			$customer->update();
 

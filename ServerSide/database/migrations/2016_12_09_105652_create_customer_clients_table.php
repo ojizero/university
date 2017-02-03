@@ -13,15 +13,16 @@ class CreateCustomerClientsTable extends Migration {
 	 */
 	public function up () {
 		Schema::create('customer_clients', function (Blueprint $table) {
-			$table->increments('id');
+//			$table->increments('id');
 
-			$table->string('secret_key')->unique();
+			$table->string('id')->unique();
 			$table->double('credit')->default(0);
 
 			$table->string('customer_name');
 			$table->string('phone_number')->unique();
 			$table->string('ID_num')->unique();
 
+			$table->primary('id');
 			$table->timestamps();
 		});
 	}
