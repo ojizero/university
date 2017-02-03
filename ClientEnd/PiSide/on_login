@@ -1,15 +1,16 @@
 #! /bin/bash
 
-PATH_TO_CREDS='/home/oji/Workspace/Git/InterfaceProject/ClientEnd/creds' #'/etc/.creds' # generify make a config file
+PATH_TO_CREDS='/home/oji/ActiveWorkspace/InterfaceProject/ClientEnd/creds'
 
 # Check for server call of maintenance
 # if maintenance mode exit
-status=$(python invalidate.py $PATH_TO_CREDS)
+status=$(python invalidate.py)
 if [[ $status ]]; then
 	# under maintenance
 	echo 'maintenance';
 else
 	# assume attack
 	# remove all information
-	rm -rf "$PATH_TO_CREDS"
+	rm -i "$PATH_TO_CREDS"
+	# sudo pkill daemonized
 fi

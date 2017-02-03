@@ -28,8 +28,8 @@ login_data = {
 client.post(URL+'/login', data=login_data, cookies=client.cookies)
 
 status = json.loads(client.get(URL+'/maintenance', cookies=client.cookies).text)
-print(type(status['status']))
-# if status['status']:
-# 	print('true')
-# else:
-# 	client.get(URL + '/kill')
+# print(status['status'])
+if status['status']:
+	print('true')
+else:
+	client.get(URL + '/kill')
