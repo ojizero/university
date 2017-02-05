@@ -45,3 +45,7 @@ jgs    _|_         //
 ==================
 cheers ^_^
 ```
+
+---
+
+The original repo is [InterfaceProject](git@github.com:ojizero/InterfaceProject.git). This folder is placed her to keep my university work unified in one place, credits to this work also go to @WeamMikkawi and @majsl243.
