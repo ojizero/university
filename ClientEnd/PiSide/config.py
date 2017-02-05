@@ -7,7 +7,7 @@ params = {
 	'_password'      : '12345678',
 	'_url'           : 'http://169.254.204.137:8000',
 	'_cost'          : 4.5,
-	'_mas_passengers':   7,
+	'_mas_passengers': 7,
 	'_lcd_pins'      : {
 		'rs'   : 26,
 		'en'   : 19,
