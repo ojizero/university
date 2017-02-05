@@ -1,0 +1,22 @@
+## Files ignored by Git
+
+# Laravel specifics
+ServerSide/node_modules
+ServerSide/public/storage
+ServerSide/vendor
+ServerSide/Homestead.json
+ServerSide/Homestead.yaml
+ServerSide/.env
+
+# Vi(m) specifics
+*.sw*
+#*~
+
+# JetBrainz
+.idea
+
+# MAC stuff
+.DS_Store
+
+# Stdout
+daemonout
