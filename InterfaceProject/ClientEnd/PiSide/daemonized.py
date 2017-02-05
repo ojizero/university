@@ -9,7 +9,7 @@ from Adafruit_CharLCD import Adafruit_CharLCD as AdaLcd
 class TheDaemon(Daemon):
 	def run(self):
 		# LCD object
-		lcd = AdaLcd(**params['_lcd_pns'])
+		lcd = AdaLcd(**params['_lcd_pins'])
 		lcd.clear()
 
 		URL = params['_url']
