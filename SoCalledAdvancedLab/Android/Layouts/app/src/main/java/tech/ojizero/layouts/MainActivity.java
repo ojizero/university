@@ -28,13 +28,16 @@ public class MainActivity extends AppCompatActivity {
 			ActionBar.LayoutParams.WRAP_CONTENT,
 			ActionBar.LayoutParams.WRAP_CONTENT
 		));
+
 		outer.addView(btn);
 		outer.addView(view);
 		view.addView(inner);
 		setContentView(outer);
 
 		btn.setOnClickListener(v -> {
-			MainActivity.this.startActivity(new Intent(MainActivity.this, AddActivity.class));
+			MainActivity.this.startActivity(
+				new Intent(MainActivity.this, AddActivity.class)
+			);
 			finish();
 		});
 	}

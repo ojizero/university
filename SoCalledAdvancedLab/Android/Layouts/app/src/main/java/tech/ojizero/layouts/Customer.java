@@ -1,7 +1,9 @@
 package tech.ojizero.layouts;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by oji on 2/23/17.
@@ -12,19 +14,24 @@ enum Gender {
 }
 
 class Customer {
-	public static ArrayList<Customer> list = new ArrayList<>();
+	public static ArrayList<Customer> List    = new ArrayList<>();
+	public static java.util.List      Genders = (List) new ArrayList<>(Arrays.asList(new String[]{
+		"male", "female", "undefined"
+	}));
+
+	public static final int GENDER_MALE      = 0;
+	public static final int GENDER_FEMALE    = 1;
+	public static final int GENDER_UNDEFINED = 2;
 
 	private int    id;
 	private String name, phone;
-	private Gender gender;
-	private Date   birth;
+	private String gender;
 
-	public Customer (int id, String name, String phone, Gender gender, Date birth) {
+	public Customer (int id, String name, String phone, String gender, Date birth) {
 		this.id = id;
 		this.name = name;
 		this.phone = phone;
 		this.gender = gender;
-		this.birth = birth;
 	}
 
 	public int getId () {
@@ -54,20 +61,12 @@ class Customer {
 		this.phone = phone;
 	}
 
-	public Gender getGender () {
+	public String getGender () {
 		return gender;
 	}
 
-	public void setGender (Gender gender) {
+	public void setGender (String gender) {
 		this.gender = gender;
-	}
-
-	public Date getBirth () {
-		return birth;
-	}
-
-	public void setBirth (Date birth) {
-		this.birth = birth;
 	}
 
 	@Override
@@ -85,8 +84,6 @@ class Customer {
 				this.name.equals(o.name)
 				&&
 				this.phone.equals(o.getPhone())
-				&&
-				this.birth.compareTo(o.getBirth()) == 0
 			);
 		} else {
 			return false;

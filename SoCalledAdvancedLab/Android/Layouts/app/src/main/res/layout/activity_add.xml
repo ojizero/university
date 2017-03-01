@@ -11,4 +11,58 @@
 	android:paddingTop="@dimen/activity_vertical_margin"
 	tools:context="tech.ojizero.layouts.AddActivity">
 
+	<Button
+		android:text="Add"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentStart="true"
+		android:id="@+id/AddButton"/>
+
+	<Button
+		android:text="Back"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentEnd="true"
+		android:id="@+id/BackButton"/>
+
+	<EditText
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:inputType="textPersonName"
+		android:text="Name"
+		android:ems="10"
+		android:id="@+id/NameText"
+		android:layout_centerVertical="true"
+		android:layout_alignStart="@+id/IdText"/>
+
+	<EditText
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:inputType="textPersonName"
+		android:text="ID"
+		android:ems="10"
+		android:id="@+id/IdText"
+		android:layout_above="@+id/NameText"
+		android:layout_centerHorizontal="true"/>
+
+	<EditText
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:inputType="textPersonName"
+		android:text="Phone"
+		android:ems="10"
+		android:id="@+id/PhoneText"
+		android:layout_below="@+id/NameText"
+		android:layout_alignStart="@+id/NameText"/>
+
+	<Spinner
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/GenderList"
+		android:layout_below="@+id/PhoneText"
+		android:layout_alignStart="@+id/PhoneText"
+		android:layout_alignEnd="@+id/PhoneText"/>
+
 </RelativeLayout>
