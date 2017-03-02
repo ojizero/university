@@ -59,11 +59,16 @@ public class MainActivity extends AppCompatActivity {
 			builder.setContentText(contentText);
 
 //			builder.setContentIntent(mContentIntent);
-//			builder.setSmallIcon(R.drawable.images);
+			builder.setSmallIcon(R.drawable.images);
 
 			((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE))
 				.notify(MY_NOTIFICATION_ID, builder.build());
 
+		});
+
+		findViewById(R.id.GotoCamera).setOnClickListener(v -> {
+			startActivity(new Intent(MainActivity.this, CameraActivity.class));
+			finish();
 		});
 	}
 }

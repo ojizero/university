@@ -12,7 +12,7 @@
 	tools:context="tech.ojizero.dialer.MainActivity">
 
 	<Button
-		android:text="Button"
+		android:text="Dialer"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_alignParentTop="true"
@@ -21,7 +21,7 @@
 		android:id="@+id/Dialer"/>
 
 	<Button
-		android:text="Button"
+		android:text="Mail"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_below="@+id/Map"
@@ -29,7 +29,7 @@
 		android:id="@+id/Mail"/>
 
 	<Button
-		android:text="Button"
+		android:text="Map"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:id="@+id/Map"
@@ -37,7 +37,7 @@
 		android:layout_alignStart="@+id/Dialer"/>
 
 	<Button
-		android:text="Button"
+		android:text="Notify"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_below="@+id/Mail"
@@ -45,10 +45,10 @@
 		android:id="@+id/Notification"/>
 
 	<Button
-		android:text="Button"
+		android:text="Camera"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_alignParentBottom="true"
 		android:layout_alignEnd="@+id/Notification"
-		android:id="@+id/Camera"/>
+		android:id="@+id/GotoCamera"/>
 </RelativeLayout>
