@@ -1,13 +1,13 @@
 package tech.ojizero.dialer;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
-public class CameraActivity extends AppCompatActivity {
+public class CameraActivity extends Activity {
 	public static final int REQUESTED_ID = 1;
 
 	@Override

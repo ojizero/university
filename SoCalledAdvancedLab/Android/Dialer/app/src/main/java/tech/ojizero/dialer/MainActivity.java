@@ -1,14 +1,14 @@
 package tech.ojizero.dialer;
 
+import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
 	private final       String tickerText         = "Notification Message";
 	private final       String contentTiltle      = "Notification";
