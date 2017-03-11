@@ -2,6 +2,7 @@
 
 use Illuminate\Foundation\Inspiring;
 
+
 /*
 |--------------------------------------------------------------------------
 | Console Routes
@@ -14,5 +15,5 @@ use Illuminate\Foundation\Inspiring;
 */
 
 Artisan::command('inspire', function () {
-    $this->comment(Inspiring::quote());
+	$this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
