@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Transaction
  *
- * @property-read \App\Customer $customer
+ * @property-read \App\User $ser
  * @property-read \App\Product $product
  * @property-read \App\Store $store
  * @mixin \Eloquent
@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Model;
 class Transaction extends Model {
 
 	public function customer () {
-		return $this->belongsTo(Customer::class);
+		return $this->belongsTo(User::class);
 	}
 
 	public function store () {

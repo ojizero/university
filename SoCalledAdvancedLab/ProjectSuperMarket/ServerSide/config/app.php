@@ -181,6 +181,7 @@ return [
 		* Custom added providers
 		*/
 		Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+		Simple\Adminer\AdminerServiceProvider::class,
 	],
 
 	/*

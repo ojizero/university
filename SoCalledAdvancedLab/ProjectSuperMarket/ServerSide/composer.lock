@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "cf87ff58f7590af8c0e8045cb9033c02",
+    "content-hash": "14d01cba60cf61c39d47015d8bd01523",
     "packages": [
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -619,6 +619,39 @@
                 "storage"
             ],
             "time": "2017-02-09T11:33:58+00:00"
+        },
+        {
+            "name": "leung/laravel-adminer",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/leung0826/adminer-for-laravel.git",
+                "reference": "717594166e26a75a551131aa0d5b9dbba443fc4b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/leung0826/adminer-for-laravel/zipball/717594166e26a75a551131aa0d5b9dbba443fc4b",
+                "reference": "717594166e26a75a551131aa0d5b9dbba443fc4b",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Simple\\Adminer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "simple",
+                    "email": "simple@gmail.com"
+                }
+            ],
+            "description": "adminer for laravel5",
+            "time": "2017-03-26T08:25:50+00:00"
         },
         {
             "name": "monolog/monolog",
