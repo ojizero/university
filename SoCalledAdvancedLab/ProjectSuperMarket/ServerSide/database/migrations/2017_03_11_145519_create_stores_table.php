@@ -14,6 +14,11 @@ class CreateStoresTable extends Migration {
 	public function up () {
 		Schema::create('stores', function (Blueprint $table) {
 			$table->increments('id');
+
+			$table->integer('user_id');
+
+			$table->string('store_name')->nullable(false);
+
 			$table->timestamps();
 		});
 	}

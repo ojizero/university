@@ -14,6 +14,17 @@ class CreateOffersTable extends Migration {
 	public function up () {
 		Schema::create('offers', function (Blueprint $table) {
 			$table->increments('id');
+
+			$table->integer('store_id');
+			$table->integer('product_id');
+
+			$table->unsignedTinyInteger('percent_discount')->nullable(false);
+			$table->dateTimeTz('offer_begins')->nullable(false);
+			$table->dateTimeTz('offer_ends')->nullable(true);
+
+			$table->string('conditions')->nullable(true);
+			$table->string('region')->nullable(true);
+
 			$table->timestamps();
 		});
 	}
