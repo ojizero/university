@@ -82,7 +82,7 @@ def parse_results (params)
 			publication_title = title_link.match(/>(.*)<\/a>/)[0].gsub(/(^>|<\/a>$)/, '')
 			title_sha2        = Digest::SHA2.hexdigest(publication_title)
 			# if title is already indexed, or was visitied before in the current parse then skip
-			if USE_INDEX and INDEX.include? (title_sha2 + "\n") and newly_added.include? title_sha2
+			if USE_INDEX and (INDEX.include? (title_sha2 + "\n") or newly_added.include? title_sha2)
 				next
 			end
 
