@@ -231,3 +231,5 @@ Homestead.json
 # *.ipr
 
 # End of https://www.gitignore.io/api/jetbrains,intellij,phpstorm,rubymine,android,laravel
+
+.DS_Store
