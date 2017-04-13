@@ -26,11 +26,6 @@ $RESEARCHER_TYPES = [
 
 class ResearchFinder {
 
-	public function __construct () {
-
-	}
-
-
 	###############################
 	# Plugin's main functionality #
 	###############################
@@ -38,7 +33,7 @@ class ResearchFinder {
 	/**
 	 * Reads user data from the database, prints users that make researches, writes data to external file named as the $OUTPUT_PATH global variable
 	 **/
-	public function prepare_data () {
+	public static function prepare_data () {
 		GLOBAL $RESEARCHER_TYPES, $OUTPUT_PATH;
 
 		$query = new WP_User_Query(
@@ -61,7 +56,7 @@ class ResearchFinder {
 	/**
 	 * Makes a system call for the ruby script to process the users data and retrieve researches from the web
 	 **/
-	public function call_finder () {
+	public static function call_finder () {
 		GLOBAL $RUBY_SCRIPT, $OUTPUT_PATH, $INPUT_PATH, $LOGGER_PATH;
 		system("ruby $RUBY_SCRIPT -i$OUTPUT_PATH -o$INPUT_PATH -l$LOGGER_PATH -n$INDEXER_PATH");
 	}
@@ -69,7 +64,7 @@ class ResearchFinder {
 	/**
 	 * Retrieves the results of the Ruby script, and adds them to the database properly
 	 **/
-	public function retrieve_results () {
+	public static function retrieve_results () {
 		GLOBAL $INPUT_PATH, $wpdb;
 
 		$data_file = fopen($INPUT_PATH, 'r');
