@@ -152,11 +152,12 @@ OptionParser.new do |options|
 	end
 
 	options.on('-n' '--USE_INDEX INDEX_FILE', 'Whether or not to use an index file to avoid sending data already existent in the database ... Default no index file') do |index_file|
-		f          = open(index_file, 'r')
-		USE_INDEX  = true
-		INDEX      = Set.new(f.readlines)
-		INDEX_FILE = open(index_file, 'a')
+		f     = open(index_file, 'r')
+		INDEX = Set.new(f.readlines)
 		f.close
+
+		USE_INDEX  = true
+		INDEX_FILE = open(index_file, 'a')
 	end
 
 	options.on('-f', '--fake-user-agent', 'Fakes the User-Agent field in the HTTP request header as if it was Firefox browser ... Default is false') do

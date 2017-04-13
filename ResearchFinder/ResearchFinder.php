@@ -14,6 +14,7 @@ $RUBY_SCRIPT      = $PLUGIN_PATH . 'AutoResearchSearcher/automater.rb';
 $OUTPUT_PATH      = $PLUGIN_PATH . 'TmpData/ruby_input';
 $INPUT_PATH       = $PLUGIN_PATH . 'TmpData/ruby_output';
 $LOGGER_PATH      = $PLUGIN_PATH . 'TmpData/ruby_log';
+$INDEXER_PATH     = $PLUGIN_PATH . 'TmpData/indexer';
 $RESEARCHER_TYPES = [
 	'assistant',
 	'mastersdirector',
@@ -62,7 +63,7 @@ class ResearchFinder {
 	 **/
 	public function call_finder () {
 		GLOBAL $RUBY_SCRIPT, $OUTPUT_PATH, $INPUT_PATH, $LOGGER_PATH;
-		system("ruby $RUBY_SCRIPT -i$OUTPUT_PATH -o$INPUT_PATH -l$LOGGER_PATH");
+		system("ruby $RUBY_SCRIPT -i$OUTPUT_PATH -o$INPUT_PATH -l$LOGGER_PATH -n$INDEXER_PATH");
 	}
 
 	/**
