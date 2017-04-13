@@ -11,12 +11,12 @@
 
 VERSION_NUMBER = '1.0.2'
 
-require 'digest/sha2'
-require 'optparse'
-require 'open-uri'
-require 'logger'
-require 'json'
 require 'set'
+require 'json'
+require 'logger'
+require 'open-uri'
+require 'optparse'
+require 'digest/sha2'
 
 #####################
 ## Program globals ##
