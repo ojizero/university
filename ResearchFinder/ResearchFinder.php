@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Research Finder
  * Description: A Plugin that takes the users in roles related to research, then starts an external Ruby script to find the researches of those users in Google Scholar, then adds those researches as a custom type (supposed to already exist) named Research.
- * Version: 1.0
+ * Version: 0.1.1
  * Author: oji
  * Author URI: https://github.com/ojizero/
  * License: MIT
@@ -43,7 +43,7 @@ class ResearchFinder {
 		$query = new WP_User_Query(
 			['role__in' => $RESEARCHER_TYPES]
 		);
-		$users = $query->get_results();    # array of the users
+		$users = $query->get_results();
 
 		$output = fopen($OUTPUT_PATH, 'w');
 		fwrite($output, '{\n');
@@ -81,11 +81,11 @@ class ResearchFinder {
 			foreach ($udata['__researches__'] as $research_data):
 				$meta_info = [
 					'wpcf-research-title'   => strip_tags($research_data['__title__']),
-//					'wpcf-author'           => preg_split('/,/', $research_data['__authors__']), # $uname, # assuming it is taken as an array
 					'wpcf-research'         => strip_tags($research_data['__pdf__']),
 					'wpcf-publication-date' => '' . time(),
 					'wpcf-publishedin'      => strip_tags($research_data['__publisher__']),
 					'wpcf-publication-url'  => strip_tags($research_data['__url__']),
+					'wpcf-abstract'         => strip_tags($research_data['__abstract__']),
 				];
 				$post_info = [
 					'ID'          => 0, # Let auto_increment do its thing
