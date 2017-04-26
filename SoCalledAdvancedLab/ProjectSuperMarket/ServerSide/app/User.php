@@ -14,6 +14,7 @@ use Illuminate\Notifications\Notifiable;
  * @mixin \Eloquent
  */
 class User extends Authenticatable {
+	use EntrustUserTrait;
 	use Notifiable;
 
 	/**
@@ -34,7 +35,13 @@ class User extends Authenticatable {
 		'password', 'remember_token',
 	];
 
+	# As a customer
 	public function transactions () {
 		return $this->hasMany(Transaction::class);
+	}
+
+	# As an owner
+	public function stores () {
+		return $this->hasMany(Store::class);
 	}
 }

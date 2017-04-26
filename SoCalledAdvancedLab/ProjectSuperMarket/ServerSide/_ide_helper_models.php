@@ -72,6 +72,7 @@ namespace App{
  *
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Transaction[] $transactions
  */
 	class User extends \Eloquent {}
 }
