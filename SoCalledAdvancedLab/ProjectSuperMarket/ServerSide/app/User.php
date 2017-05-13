@@ -14,8 +14,8 @@ use Illuminate\Notifications\Notifiable;
  * @mixin \Eloquent
  */
 class User extends Authenticatable {
-	use EntrustUserTrait;
 	use Notifiable;
+	use \Zizaco\Entrust\Traits\EntrustUserTrait;
 
 	/**
 	 * The attributes that are mass assignable.
