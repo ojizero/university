@@ -48,8 +48,8 @@ class ProductController extends Controller {
 		}
 
 		return response()->json([
-			'status' =>  $status,
-			'message' => $message,
+			'status' => $status,
+			'data'   => $message,
 		], $status);
 	}
 
@@ -60,7 +60,18 @@ class ProductController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function show ($id) {
-		//
+		if (True || \Entrust::can('view_content')) {
+			$data   = Product::findOrFail($id);
+			$status = 200;
+		} else {
+			$status = 403;
+			$data   = 'unauthorized access';
+		}
+
+		return response()->json([
+			'status' => $status,
+			'data'   => $data,
+		], $status);
 	}
 
 	/**
