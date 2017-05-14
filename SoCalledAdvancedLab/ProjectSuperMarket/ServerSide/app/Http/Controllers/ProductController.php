@@ -12,7 +12,18 @@ class ProductController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index () {
-		//
+		if (True || \Entrust::can('view_content')) {
+			$data   = Product::all();
+			$status = 200;
+		} else {
+			$status = 403;
+			$data   = 'unauthorized access';
+		}
+
+		return response()->json([
+			'status' => $status,
+			'data'   => $data,
+		], $status);
 	}
 
 	/**
@@ -102,6 +113,17 @@ class ProductController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function destroy ($id) {
-		//
+		if (True || \Entrust::can('manage_content')) {
+			$data   = Product::destroy($id);
+			$status = 200;
+		} else {
+			$status = 403;
+			$data   = 'unauthorized access';
+		}
+
+		return response()->json([
+			'status' => $status,
+			'data'   => $data,
+		], $status);
 	}
 }

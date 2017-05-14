@@ -20,6 +20,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::resource('products', 'ProductController', [
 	'except' => [
-		'create',
+		'create', 'edit',
 	]
 ]);
