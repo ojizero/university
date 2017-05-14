@@ -13,16 +13,16 @@ class ProductController extends Controller {
 	 */
 	public function index () {
 		if (True || \Entrust::can('view_content')) {
-			$data   = Product::all();
+			$resp   = Product::all();
 			$status = 200;
 		} else {
 			$status = 403;
-			$data   = 'unauthorized access';
+			$resp   = 'unauthorized access';
 		}
 
 		return response()->json([
-			'status' => $status,
-			'data'   => $data,
+			'status'   => $status,
+			'response' => $resp,
 		], $status);
 	}
 
@@ -49,18 +49,16 @@ class ProductController extends Controller {
 				'availability'  => 'required|boolean',
 			]);
 
-			Product::create($request->all());
-
-			$status  = 200;
-			$message = 'success';
+			$resp   = Product::create($request->all());
+			$status = 200;
 		} else {
-			$status  = 403;
-			$message = 'unauthorized create request';
+			$status = 403;
+			$resp   = 'unauthorized create request';
 		}
 
 		return response()->json([
-			'status' => $status,
-			'data'   => $message,
+			'status'   => $status,
+			'response' => $resp,
 		], $status);
 	}
 
@@ -72,16 +70,16 @@ class ProductController extends Controller {
 	 */
 	public function show ($id) {
 		if (True || \Entrust::can('view_content')) {
-			$data   = Product::findOrFail($id);
+			$resp   = Product::findOrFail($id);
 			$status = 200;
 		} else {
 			$status = 403;
-			$data   = 'unauthorized access';
+			$resp   = 'unauthorized access';
 		}
 
 		return response()->json([
-			'status' => $status,
-			'data'   => $data,
+			'status'   => $status,
+			'response' => $resp,
 		], $status);
 	}
 
@@ -103,7 +101,18 @@ class ProductController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update (Request $request, $id) {
-		//
+		if (True || \Entrust::can('manage_content')) {
+			$resp   = Product::findOrFail($id)->update($request->all());
+			$status = 200;
+		} else {
+			$status = 403;
+			$resp   = 'unauthorized access';
+		}
+
+		return response()->json([
+			'status'   => $status,
+			'response' => $resp,
+		], $status);
 	}
 
 	/**
@@ -114,16 +123,16 @@ class ProductController extends Controller {
 	 */
 	public function destroy ($id) {
 		if (True || \Entrust::can('manage_content')) {
-			$data   = Product::destroy($id);
+			$resp   = Product::destroy($id);
 			$status = 200;
 		} else {
 			$status = 403;
-			$data   = 'unauthorized access';
+			$resp   = 'unauthorized access';
 		}
 
 		return response()->json([
-			'status' => $status,
-			'data'   => $data,
+			'status'   => $status,
+			'response' => $resp,
 		], $status);
 	}
 }
