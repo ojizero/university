@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller {
@@ -30,7 +31,26 @@ class ProductController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store (Request $request) {
-		//
+		if (True || \Entrust::can('manage_content')) {
+			$this->validate($request, [
+				'product_name'  => 'required|max:255',
+				'product_price' => 'required|numeric|min:1',
+				'availability'  => 'required|boolean',
+			]);
+
+			Product::create($request->all());
+
+			$status  = 200;
+			$message = 'success';
+		} else {
+			$status  = 403;
+			$message = 'unauthorized create request';
+		}
+
+		return response()->json([
+			'status' =>  $status,
+			'message' => $message,
+		], $status);
 	}
 
 	/**

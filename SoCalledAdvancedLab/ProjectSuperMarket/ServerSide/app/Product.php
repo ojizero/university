@@ -16,6 +16,10 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Product extends Model {
 
+	protected $fillable = [
+		'product_name', 'product_description', 'product_price', 'availability', 'images_paths',
+	];
+
 	public function store () {
 		return $this->belongsToMany(Store::class);
 	}

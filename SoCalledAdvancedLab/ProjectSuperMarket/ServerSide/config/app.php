@@ -233,6 +233,7 @@ return [
 		'View'         => Illuminate\Support\Facades\View::class,
 		// Custom facades
 		'Entrust'      => Zizaco\Entrust\EntrustFacade::class,
+		'Input'        => Illuminate\Support\Facades\Input::class,
 	],
 
 ];
