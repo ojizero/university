@@ -35,3 +35,13 @@ Route::resource('contents', 'ContentController', [
 		'create', 'edit', 'update',
 	]
 ]);
+
+Route::resource('stores', 'StoreController', [
+	'except' => [
+		'create', 'edit', 'update',
+	]
+]);
+
+Route::delete('test/{id}', function (Request $request) {
+	dd($request->path());
+});

@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App;
+use Route;
 use Closure;
 use \Illuminate\Http\Request;
 
@@ -29,7 +30,7 @@ class ContentMiddleware {
 	public function handle (Request $request, Closure $next) {
 
 		$contentful = $this->isContentful($request->route()->uri)[0];
-		if (array_key_exists('content_object', $request->all())	&& $contentful) {
+		if ($contentful) {
 			if (False && ! \Entrust::can('manage_content')) {
 				return response()->json([
 					'status'   => 403,
@@ -40,11 +41,15 @@ class ContentMiddleware {
 			$contentClass = App::make($this->contentfulClasses[$contentful]);
 			$classTable   = with($contentClass)->getTable();
 
-			$foreign_id = \DB::select("show table status like '${classTable}'")[0]->Auto_increment;
-
-			$request['_content_result'] = (new \App\Http\Controllers\ContentController())->createFor($request['content_object'], $foreign_id, $this->contentfulClasses[$contentful]);
-			$request->request->remove('content_object');
-			$request['id'] = $foreign_id;
+			if (array_key_exists('content_object', $request->all()) && $request->method() != 'DELETE') {
+				$foreign_id = \DB::select("show table status like '${classTable}'")[0]->Auto_increment;
+				$request['_content_result'] = with(new \App\Http\Controllers\ContentController())->storeFor($request['content_object'], $foreign_id, $this->contentfulClasses[$contentful]);
+				$request->request->remove('content_object');
+				$request['id'] = $foreign_id;
+			} elseif ($request->method() == 'DELETE') {
+				$foreign_id = Route::current()->parameters[$contentClass::$name];
+				$request['_content_result'] = with(new \App\Http\Controllers\ContentController)->destroyFor($foreign_id, $this->contentfulClasses[$contentful]);
+			}
 		}
 
 		return $next($request);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App;
 use \App\Content;
 use Illuminate\Http\Request;
 
@@ -49,7 +50,7 @@ class ContentController extends Controller {
 	 */
 	public function store (Request $request) {
 		if (True || \Entrust::can('manage_content')) {
-			$this->validate($request, $rules);
+			$this->validate($request, $this->rules);
 
 			$resp   = Content::create($request->all());
 			$status = 200;
@@ -62,28 +63,6 @@ class ContentController extends Controller {
 			'status'   => $status,
 			'response' => $resp,
 		], $status);
-	}
-
-	public function createFor ($contentsArray, $id, $type) {
-		if (True || \Entrust::can('manage_content')) {
-			if (!array_filter($contentsArray, 'is_array')) {
-				$contentsArray = [$contentsArray];
-			}
-
-			$resp = [];
-			foreach ($contentsArray as $content) {
-				$content['foreign_id']   = $id;
-				$content['foreign_type'] = $type;
-				$content['content_path'] = $content['file']->store('images');
-				$content['content_type'] = 'image';
-
-				\Validator::make($content, $rules)->validate();
-
-				$resp[] = Content::create($content);
-			}
-
-			return $resp;
-		}
 	}
 
 	/**
@@ -152,4 +131,41 @@ class ContentController extends Controller {
 			'response' => $resp,
 		], $status);
 	}
+
+	public function storeFor ($contentsArray, $id, $type) {
+		if (True || \Entrust::can('manage_content')) {
+			if (!array_filter($contentsArray, 'is_array')) {
+				$contentsArray = [$contentsArray];
+			}
+
+			$resp = [];
+			foreach ($contentsArray as $content) {
+				$content['foreign_id']   = $id;
+				$content['foreign_type'] = $type;
+				$content['content_path'] = $content['file']->store('images');
+				$content['content_type'] = 'image';
+
+				\Validator::make($content, $this->rules)->validate();
+
+				$resp[] = Content::create($content);
+			}
+
+			return $resp;
+		}
+	}
+
+	public function destroyFor ($id, $type) {
+		if (True || \Entrust::can('manage_content')) {
+			$contentClass = App::make($type);
+			$contents = $contentClass::find($id)->contents;
+
+			$resp = 0;
+			foreach ($contents as $content) {
+				$resp += (\Storage::delete($content->content_path) && $content->delete())?(1):(0);
+			}
+
+			return $resp;
+		}
+	}
+
 }

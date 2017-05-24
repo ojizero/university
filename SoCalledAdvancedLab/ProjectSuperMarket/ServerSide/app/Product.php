@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Product extends Model {
 
+	public static $name = 'product';
+
 	protected $fillable = [
 		'id', 'product_name', 'product_description', 'product_price', 'availability',
 	];

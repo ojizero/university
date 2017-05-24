@@ -17,6 +17,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Store extends Model {
 
+	public static $name = 'store';
+
 	protected $fillable = [
 		'user_id', 'store_name', 'store_logo',
 	];
