@@ -29,3 +29,9 @@ Route::resource('transactions', 'TransactionController', [
 		'create', 'edit',
 	]
 ]);
+
+Route::resource('contents', 'ContentController', [
+	'except' => [
+		'create', 'edit', 'update',
+	]
+]);
