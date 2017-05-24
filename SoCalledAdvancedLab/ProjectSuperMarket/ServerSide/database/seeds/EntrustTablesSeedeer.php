@@ -66,6 +66,13 @@ class EntrustTablesSeedeer extends Seeder
 			 'description'  => 'view_content',
 		]);
 
+		# make transactions
+		$makeTransaction = Permission::create([
+			 'name'         => 'make_transaction',
+			 'display_name' => 'make_transaction',
+			 'description'  => 'make_transaction',
+		]);
+
 		/**
 		 * Attach permissions to roles
 		 */
@@ -73,15 +80,18 @@ class EntrustTablesSeedeer extends Seeder
 			$manageUsers,
 			$manageContent,
 			$viewContent,
+			$makeTransaction,
 		]);
 
 		$owner->attachPermissions([
 			$manageContent,
 			$viewContent,
+			$makeTransaction,
 		]);
 
 		$user->attachPermissions([
 			$viewContent,
+			$makeTransaction,
 		]);
 	}
 }

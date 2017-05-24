@@ -42,7 +42,27 @@ class TransactionController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store (Request $request) {
-		//
+		if (True || \Entrust::can('make_transaction')) {
+			$this->validate($request, [
+				'product_name'  => 'required|max:255',
+				'product_price' => 'required|numeric|min:1',
+				'availability'  => 'required|boolean',
+			]);
+
+			$resp   = [
+				'product' => Transaction::create($request->all()),
+				'content' => $request['_content_result'],
+			];
+			$status = 200;
+		} else {
+			$status = 403;
+			$resp   = 'unauthorized create request';
+		}
+
+		return response()->json([
+			'status'   => $status,
+			'response' => $resp,
+		], $status);
 	}
 
 	/**
@@ -52,7 +72,18 @@ class TransactionController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function show ($id) {
-		//
+		if (True || \Entrust::hasRole('$admin') || $this->canView($id)) {
+			$resp   = Transaction::findOrFail($id);
+			$status = 200;
+		} else {
+			$status = 403;
+			$resp   = 'unauthorized access';
+		}
+
+		return response()->json([
+			'status'   => $status,
+			'response' => $resp,
+		], $status);
 	}
 
 	/**
@@ -73,7 +104,21 @@ class TransactionController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update (Request $request, $id) {
-		//
+		if (True || \Entrust::can('make_transaction')) {
+			$resp   = [
+				'product' => Transaction::findOrFail($id)->update($request->all()),
+				'content' => $request['_content_result'],
+			];
+			$status = 200;
+		} else {
+			$status = 403;
+			$resp   = 'unauthorized access';
+		}
+
+		return response()->json([
+			'status'   => $status,
+			'response' => $resp,
+		], $status);
 	}
 
 	/**
@@ -83,6 +128,21 @@ class TransactionController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function destroy ($id) {
-		//
+		if (True || \Entrust::hasRole('$admin')) {
+			$resp   = Transaction::destroy($id);
+			$status = 200;
+		} else {
+			$status = 403;
+			$resp   = 'unauthorized access';
+		}
+
+		return response()->json([
+			'status'   => $status,
+			'response' => $resp,
+		], $status);
+	}
+
+	private function canView ($id) {
+		return \Entrust::user() && (Transaction::findOrFail($id)->user_id == \Entrust::user()->id);
 	}
 }

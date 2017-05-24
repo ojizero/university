@@ -19,8 +19,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
-// Route::resource('products', 'ProductController', [
-// 	'except' => [
-// 		'create',
-// 	]
-// ]);
+Route::get('test', function (Request $request) {
+	dd(\Entrust::user());
+});

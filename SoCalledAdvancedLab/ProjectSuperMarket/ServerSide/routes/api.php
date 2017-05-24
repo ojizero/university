@@ -26,7 +26,7 @@ Route::resource('products', 'ProductController', [
 
 Route::resource('transactions', 'TransactionController', [
 	'except' => [
-		'create', 'edit',
+		'create', 'edit', 'update',
 	]
 ]);
 
@@ -42,6 +42,6 @@ Route::resource('stores', 'StoreController', [
 	]
 ]);
 
-Route::delete('test/{id}', function (Request $request) {
-	dd($request->path());
+Route::get('test', function (Request $request) {
+	dd(\Entrust::user()->id);
 });
