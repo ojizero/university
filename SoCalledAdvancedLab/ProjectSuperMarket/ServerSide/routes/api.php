@@ -23,3 +23,9 @@ Route::resource('products', 'ProductController', [
 		'create', 'edit',
 	]
 ]);
+
+Route::resource('transactions', 'TransactionController', [
+	'except' => [
+		'create', 'edit',
+	]
+]);

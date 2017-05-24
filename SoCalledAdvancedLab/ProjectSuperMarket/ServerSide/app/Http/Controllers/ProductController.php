@@ -6,6 +6,11 @@ use App\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller {
+
+	public function __construct () {
+		$this->middleware('content');
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -49,7 +54,10 @@ class ProductController extends Controller {
 				'availability'  => 'required|boolean',
 			]);
 
-			$resp   = Product::create($request->all());
+			$resp   = [
+				'product' => Product::create($request->all()),
+				'content' => $request['_content_result'],
+			];
 			$status = 200;
 		} else {
 			$status = 403;
@@ -102,7 +110,10 @@ class ProductController extends Controller {
 	 */
 	public function update (Request $request, $id) {
 		if (True || \Entrust::can('manage_content')) {
-			$resp   = Product::findOrFail($id)->update($request->all());
+			$resp   = [
+				'product' => Product::findOrFail($id)->update($request->all()),
+				'content' => $request['_content_result'],
+			];
 			$status = 200;
 		} else {
 			$status = 403;

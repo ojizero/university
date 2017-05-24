@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model {
 
 	protected $fillable = [
-		'product_name', 'product_description', 'product_price', 'availability', 'images_paths',
+		'id', 'product_name', 'product_description', 'product_price', 'availability',
 	];
 
 	public function store () {
@@ -30,6 +30,10 @@ class Product extends Model {
 
 	public function transactions () {
 		return $this->hasMany(Transaction::class);
+	}
+
+	public function contents () {
+		return $this->hasMany(Content::class, 'foreign_id');
 	}
 
 }

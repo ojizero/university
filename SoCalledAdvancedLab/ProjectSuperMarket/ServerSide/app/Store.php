@@ -17,6 +17,10 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Store extends Model {
 
+	protected $fillable = [
+		'user_id', 'store_name', 'store_logo',
+	];
+
 	public function products () {
 		return $this->hasMany(Product::class);
 	}
@@ -31,6 +35,10 @@ class Store extends Model {
 
 	public function transactions () {
 		return $this->hasMany(Transaction::class);
+	}
+
+	public function contents () {
+		return $this->hasMany(Content::class, 'foreign_id');
 	}
 
 }

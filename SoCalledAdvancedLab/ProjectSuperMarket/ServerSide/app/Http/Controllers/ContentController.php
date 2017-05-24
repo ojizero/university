@@ -2,28 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Transaction;
+use \App\Content;
 use Illuminate\Http\Request;
 
-class TransactionController extends Controller {
+class ContentController extends Controller {
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index () {
-		if (True || \Entrust::hasRole('$admin')) {
-			$resp   = Transaction::all();
-			$status = 200;
-		} else {
-			$status = 403;
-			$resp   = 'unauthorized create request';
-		}
-
-		return response()->json([
-			'status'   => $status,
-			'response' => $resp,
-		], $status);
+		//
 	}
 
 	/**
@@ -43,6 +32,24 @@ class TransactionController extends Controller {
 	 */
 	public function store (Request $request) {
 		//
+	}
+
+	public function createFor ($contentsArray, $id, $type) {
+		if (!array_filter($contentsArray, 'is_array')) {
+			$contentsArray = [$contentsArray];
+		}
+
+		$resp = [];
+		foreach ($contentsArray as $content) {
+			$content['foreign_id']   = $id;
+			$content['foreign_type'] = $type;
+			$content['content_path'] = $content['file']->store('images');
+			$content['content_type'] = 'image';
+
+			$resp[] = Content::create($content);
+		}
+
+		return $resp;
 	}
 
 	/**

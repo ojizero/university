@@ -20,6 +20,7 @@ class CreateTransactionsTable extends Migration {
 			$table->integer('product_id')->nullable(false);
 
 			$table->unsignedInteger('amount')->default(0);
+			// add cancelled flag
 
 			$table->timestamps();
 		});

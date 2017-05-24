@@ -19,7 +19,7 @@ class CreateStoresTable extends Migration {
 
 			$table->string('store_name')->nullable(false);
 
-			$table->string('store_logo')->nullable(true);
+			// $table->string('store_logo')->nullable(true);
 
 			$table->timestamps();
 		});

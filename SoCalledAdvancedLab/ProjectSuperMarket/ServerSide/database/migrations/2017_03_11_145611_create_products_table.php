@@ -23,7 +23,7 @@ class CreateProductsTable extends Migration {
 			$table->boolean('availability')->nullable(false);
 
 			# comma separated paths to files
-			$table->string('images_paths')->nullable(true);
+			// $table->string('images_paths')->nullable(true);
 
 			$table->timestamps();
 		});
