@@ -48,6 +48,7 @@ class ContentMiddleware {
 				$request['id'] = $foreign_id;
 			} elseif ($request->method() == 'DELETE') {
 				$foreign_id = Route::current()->parameters[$contentClass::$name];
+				// $contentForeign = $contentClass::findOrFail($foreign_id); // we can use this isntead of having destroyFor do the find
 				$request['_content_result'] = with(new \App\Http\Controllers\ContentController)->destroyFor($foreign_id, $this->contentfulClasses[$contentful]);
 			}
 		}

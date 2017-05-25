@@ -157,7 +157,7 @@ class ContentController extends Controller {
 	public function destroyFor ($id, $type) {
 		if (True || \Entrust::can('manage_content')) {
 			$contentClass = App::make($type);
-			$contents = $contentClass::find($id)->contents;
+			$contents     = $contentClass::findOrFail($id)->contents;
 
 			$resp = 0;
 			foreach ($contents as $content) {

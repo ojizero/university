@@ -44,15 +44,13 @@ class TransactionController extends Controller {
 	public function store (Request $request) {
 		if (True || \Entrust::can('make_transaction')) {
 			$this->validate($request, [
-				'product_name'  => 'required|max:255',
-				'product_price' => 'required|numeric|min:1',
-				'availability'  => 'required|boolean',
+				'user_id'    => 'required|numeric',
+				'store_id'   => 'required|numeric',
+				'product_id' => 'required|numeric',
+				'amount'     => 'required|numeric|min:1',
 			]);
 
-			$resp   = [
-				'product' => Transaction::create($request->all()),
-				'content' => $request['_content_result'],
-			];
+			$resp   = 'product' => Transaction::create($request->all());
 			$status = 200;
 		} else {
 			$status = 403;
@@ -105,10 +103,7 @@ class TransactionController extends Controller {
 	 */
 	public function update (Request $request, $id) {
 		if (True || \Entrust::can('make_transaction')) {
-			$resp   = [
-				'product' => Transaction::findOrFail($id)->update($request->all()),
-				'content' => $request['_content_result'],
-			];
+			$resp   = 'product' => Transaction::findOrFail($id)->update($request->all());
 			$status = 200;
 		} else {
 			$status = 403;
