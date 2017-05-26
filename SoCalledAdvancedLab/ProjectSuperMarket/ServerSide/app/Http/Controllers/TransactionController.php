@@ -50,7 +50,7 @@ class TransactionController extends Controller {
 				'amount'     => 'required|numeric|min:1',
 			]);
 
-			$resp   = 'product' => Transaction::create($request->all());
+			$resp   = Transaction::create($request->all());
 			$status = 200;
 		} else {
 			$status = 403;
@@ -103,7 +103,7 @@ class TransactionController extends Controller {
 	 */
 	public function update (Request $request, $id) {
 		if (True || \Entrust::can('make_transaction')) {
-			$resp   = 'product' => Transaction::findOrFail($id)->update($request->all());
+			$resp   = Transaction::findOrFail($id)->update($request->all());
 			$status = 200;
 		} else {
 			$status = 403;

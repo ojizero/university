@@ -1,0 +1,45 @@
++--------+--------------------------------+--------------------------------+----------------------+------------------------------------------------------------------------+--------------+
+| Domain | Method                         | URI                            | Name                 | Action                                                                 | Middleware   |
++--------+--------------------------------+--------------------------------+----------------------+------------------------------------------------------------------------+--------------+
+|        | GET|HEAD                       | /                              |                      | Closure                                                                | web          |
+|        | GET|HEAD|POST|PUT|PATCH|DELETE | adminer                        |                      | Simple\Adminer\Controllers\AdminerController@index                     | web          |
+|        | GET|HEAD                       | api/contents                   | contents.index       | App\Http\Controllers\ContentController@index                           | api          |
+|        | POST                           | api/contents                   | contents.store       | App\Http\Controllers\ContentController@store                           | api          |
+|        | DELETE                         | api/contents/{content}         | contents.destroy     | App\Http\Controllers\ContentController@destroy                         | api          |
+|        | GET|HEAD                       | api/contents/{content}         | contents.show        | App\Http\Controllers\ContentController@show                            | api          |
+|        | POST                           | api/login                      |                      | App\Http\Controllers\Auth\LoginController@login                        | api,guest    |
+|        | GET|HEAD                       | api/login                      | login                | App\Http\Controllers\Auth\LoginController@showLoginForm                | api,guest    |
+|        | POST                           | api/logout                     | logout               | App\Http\Controllers\Auth\LoginController@logout                       | api          |
+|        | POST                           | api/password/email             | password.email       | App\Http\Controllers\Auth\ForgotPasswordController@sendResetLinkEmail  | api,guest    |
+|        | GET|HEAD                       | api/password/reset             | password.request     | App\Http\Controllers\Auth\ForgotPasswordController@showLinkRequestForm | api,guest    |
+|        | POST                           | api/password/reset             |                      | App\Http\Controllers\Auth\ResetPasswordController@reset                | api,guest    |
+|        | GET|HEAD                       | api/password/reset/{token}     | password.reset       | App\Http\Controllers\Auth\ResetPasswordController@showResetForm        | api,guest    |
+|        | GET|HEAD                       | api/products                   | products.index       | App\Http\Controllers\ProductController@index                           | api,content  |
+|        | POST                           | api/products                   | products.store       | App\Http\Controllers\ProductController@store                           | api,content  |
+|        | GET|HEAD                       | api/products/{product}         | products.show        | App\Http\Controllers\ProductController@show                            | api,content  |
+|        | PUT|PATCH                      | api/products/{product}         | products.update      | App\Http\Controllers\ProductController@update                          | api,content  |
+|        | DELETE                         | api/products/{product}         | products.destroy     | App\Http\Controllers\ProductController@destroy                         | api,content  |
+|        | POST                           | api/register                   |                      | App\Http\Controllers\Auth\RegisterController@register                  | api,guest    |
+|        | GET|HEAD                       | api/register                   | register             | App\Http\Controllers\Auth\RegisterController@showRegistrationForm      | api,guest    |
+|        | GET|HEAD                       | api/stores                     | stores.index         | App\Http\Controllers\StoreController@index                             | api,content  |
+|        | POST                           | api/stores                     | stores.store         | App\Http\Controllers\StoreController@store                             | api,content  |
+|        | GET|HEAD                       | api/stores/{store}             | stores.show          | App\Http\Controllers\StoreController@show                              | api,content  |
+|        | DELETE                         | api/stores/{store}             | stores.destroy       | App\Http\Controllers\StoreController@destroy                           | api,content  |
+|        | GET|HEAD                       | api/test                       |                      | Closure                                                                | api          |
+|        | POST                           | api/transactions               | transactions.store   | App\Http\Controllers\TransactionController@store                       | api          |
+|        | GET|HEAD                       | api/transactions               | transactions.index   | App\Http\Controllers\TransactionController@index                       | api          |
+|        | DELETE                         | api/transactions/{transaction} | transactions.destroy | App\Http\Controllers\TransactionController@destroy                     | api          |
+|        | GET|HEAD                       | api/transactions/{transaction} | transactions.show    | App\Http\Controllers\TransactionController@show                        | api          |
+|        | GET|HEAD                       | api/user                       |                      | Closure                                                                | api,auth:api |
+|        | GET|HEAD                       | home                           |                      | App\Http\Controllers\HomeController@index                              | web,auth     |
+|        | GET|HEAD                       | login                          | login                | App\Http\Controllers\Auth\LoginController@showLoginForm                | web,guest    |
+|        | POST                           | login                          |                      | App\Http\Controllers\Auth\LoginController@login                        | web,guest    |
+|        | POST                           | logout                         | logout               | App\Http\Controllers\Auth\LoginController@logout                       | web          |
+|        | POST                           | password/email                 | password.email       | App\Http\Controllers\Auth\ForgotPasswordController@sendResetLinkEmail  | web,guest    |
+|        | GET|HEAD                       | password/reset                 | password.request     | App\Http\Controllers\Auth\ForgotPasswordController@showLinkRequestForm | web,guest    |
+|        | POST                           | password/reset                 |                      | App\Http\Controllers\Auth\ResetPasswordController@reset                | web,guest    |
+|        | GET|HEAD                       | password/reset/{token}         | password.reset       | App\Http\Controllers\Auth\ResetPasswordController@showResetForm        | web,guest    |
+|        | GET|HEAD                       | register                       | register             | App\Http\Controllers\Auth\RegisterController@showRegistrationForm      | web,guest    |
+|        | POST                           | register                       |                      | App\Http\Controllers\Auth\RegisterController@register                  | web,guest    |
+|        | GET|HEAD                       | test                           |                      | Closure                                                                | web          |
++--------+--------------------------------+--------------------------------+----------------------+------------------------------------------------------------------------+--------------+

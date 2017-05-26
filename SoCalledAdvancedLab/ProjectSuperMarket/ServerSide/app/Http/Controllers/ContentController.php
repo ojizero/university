@@ -13,14 +13,24 @@ class ContentController extends Controller {
 		'foreign_type' => 'required',
 	];
 
+	private $typesMap = [
+		'store'   => \App\Store::class,
+		'product' => \App\Product::class,
+	];
+
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function index () {
+	public function index (Request $request) {
 		if (True || \Entrust::can('view_content')) {
 			$resp   = Content::all();
+			if ($request->input('type') && $request->input('id')) {
+				$resp = $resp
+					->where('foreign_type', '=', $this->typesMap[$request->input('type')])
+					->where('foreign_id', '=', $request->input('id'));
+			}
 			$status = 200;
 		} else {
 			$resp   = 'unauthorized access';

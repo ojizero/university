@@ -110,10 +110,7 @@ class ProductController extends Controller {
 	 */
 	public function update (Request $request, $id) {
 		if (True || \Entrust::can('manage_content')) {
-			$resp   = [
-				'product' => Product::findOrFail($id)->update($request->all()),
-				'content' => $request['_content_result'],
-			];
+			$resp   = Product::findOrFail($id)->update($request->all());
 			$status = 200;
 		} else {
 			$status = 403;

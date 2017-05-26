@@ -109,7 +109,7 @@ class StoreController extends Controller {
 	 */
 	public function update (Request $request, $id) {
 		if (True || \Entrust::can('manage_content')) {
-			$resp   = 'product' => Store::findOrFail($id)->update($request->all());
+			$resp   = Store::findOrFail($id)->update($request->all());
 			$status = 200;
 		} else {
 			$status = 403;
